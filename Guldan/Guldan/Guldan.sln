@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31911.196
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guldan", "Guldan.csproj", "{6DCEC7D4-55EF-49FC-96F8-F6F7CF472616}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{644EEF21-9C38-4213-819A-E94A92484D60}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guldan.Package", "..\Plugins\Guldan.Package\Guldan.Package.csproj", "{5F7B9690-E112-4866-A93E-F39900C28DC6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6DCEC7D4-55EF-49FC-96F8-F6F7CF472616}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DCEC7D4-55EF-49FC-96F8-F6F7CF472616}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DCEC7D4-55EF-49FC-96F8-F6F7CF472616}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DCEC7D4-55EF-49FC-96F8-F6F7CF472616}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F7B9690-E112-4866-A93E-F39900C28DC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F7B9690-E112-4866-A93E-F39900C28DC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F7B9690-E112-4866-A93E-F39900C28DC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F7B9690-E112-4866-A93E-F39900C28DC6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5F7B9690-E112-4866-A93E-F39900C28DC6} = {644EEF21-9C38-4213-819A-E94A92484D60}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {05121770-1E91-4E20-8DC8-92B1103F2931}
+	EndGlobalSection
+EndGlobal
