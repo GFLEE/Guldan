@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Guldan.Package
+namespace Guldan.QuartzNet
 {
     public class Class1
     {

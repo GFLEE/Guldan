@@ -3,11 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31911.196
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guldan", "Guldan.csproj", "{6DCEC7D4-55EF-49FC-96F8-F6F7CF472616}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Guldan", "Guldan.csproj", "{6DCEC7D4-55EF-49FC-96F8-F6F7CF472616}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{644EEF21-9C38-4213-819A-E94A92484D60}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guldan.Package", "..\Plugins\Guldan.Package\Guldan.Package.csproj", "{5F7B9690-E112-4866-A93E-F39900C28DC6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Guldan.Package", "..\Plugins\Guldan.Package\Guldan.Package.csproj", "{5F7B9690-E112-4866-A93E-F39900C28DC6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guldan.QuartzNet", "..\Plugins\Guldan.QuartzNet\Guldan.QuartzNet.csproj", "{75A672D5-8842-498C-B4BE-32367A86EFEA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{1E551CDD-3AFC-42D1-A919-BEE589C11645}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guldan.Common", "..\Common\Guldan.Common\Guldan.Common.csproj", "{55C7EA7C-D242-4246-9D5A-85F07B23754F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,12 +29,22 @@ Global
 		{5F7B9690-E112-4866-A93E-F39900C28DC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F7B9690-E112-4866-A93E-F39900C28DC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F7B9690-E112-4866-A93E-F39900C28DC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75A672D5-8842-498C-B4BE-32367A86EFEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75A672D5-8842-498C-B4BE-32367A86EFEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75A672D5-8842-498C-B4BE-32367A86EFEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75A672D5-8842-498C-B4BE-32367A86EFEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55C7EA7C-D242-4246-9D5A-85F07B23754F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55C7EA7C-D242-4246-9D5A-85F07B23754F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55C7EA7C-D242-4246-9D5A-85F07B23754F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55C7EA7C-D242-4246-9D5A-85F07B23754F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{5F7B9690-E112-4866-A93E-F39900C28DC6} = {644EEF21-9C38-4213-819A-E94A92484D60}
+		{75A672D5-8842-498C-B4BE-32367A86EFEA} = {644EEF21-9C38-4213-819A-E94A92484D60}
+		{55C7EA7C-D242-4246-9D5A-85F07B23754F} = {1E551CDD-3AFC-42D1-A919-BEE589C11645}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {05121770-1E91-4E20-8DC8-92B1103F2931}
