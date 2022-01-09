@@ -10,7 +10,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace Guldan.QuartzNet.Base
 {
-    public class InitQuartzConfiguration : IHostedService, IDisposable
+    public class QuartzConfiguration : IHostedService, IDisposable
     {
 
         public Task StartAsync(CancellationToken cancellationToken)

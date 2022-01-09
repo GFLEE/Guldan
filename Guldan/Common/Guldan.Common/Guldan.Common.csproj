@@ -8,4 +8,8 @@
     <ProjectReference Include="..\..\Plugins\Guldan.Package\Guldan.Package.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Extension\" />
+  </ItemGroup>
+
 </Project>

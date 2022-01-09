@@ -13,7 +13,7 @@ using Quartz;
 
 namespace Guldan.QuartzNet.Base
 {
-    public class InitDefaultJobHostService : IHostedService, IDisposable
+    public class DefaultJobHostService : IHostedService, IDisposable
     {
         public Task StartAsync(CancellationToken stoppingToken)
         {

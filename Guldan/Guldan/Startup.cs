@@ -14,27 +14,46 @@ using Serilog;
 using Serilog.Formatting.Json;
 using Serilog.Sinks.RabbitMQ;
 using Serilog.Sinks.RabbitMQ.Sinks.RabbitMQ;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using Guldan.Common.DI;
+using Guldan.Common.QuartzNet;
+using CrystalQuartz.AspNetCore;
+using CrystalQuartz.Core.SchedulerProviders;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Guldan.QuartzNet.Base;
+using Guldan.Service;
 
 namespace Guldan
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
         public Startup(IConfiguration configuration)
         {
+            Console.Title = "Guldan";
             Configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
-
+         
         public void ConfigureServices(IServiceCollection services)
         {
-
+        
+            services.AddCustomServices();
+            services.Configure<KestrelServerOptions>(x => x.AllowSynchronousIO = true)
+                .Configure<IISServerOptions>(x => x.AllowSynchronousIO = true);
             services.AddControllers();
-            services.AddSwaggerGen(c =>
+        }
+
+
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            builder.RegisterBuildCallback((container) =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Guldan", Version = "v1" });
+                GuldanIOC.ServiceProvider = new AutofacServiceProvider(container);
             });
         }
+
+
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -53,6 +72,14 @@ namespace Guldan
             {
                 endpoints.MapControllers();
             });
+
+            app.UseCrystalQuartz(() => { return GuldanScheduler.Scheduler; });
+
+            app.UseCrystalQuartz(new RemoteSchedulerProvider()
+            {
+                SchedulerHost = $"{QuartzModel.ChannelType}://{QuartzModel.Ip}:{QuartzModel.Port}/{QuartzModel.BindName}"
+            });
+
         }
     }
 }
