@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>E:\GitLab\Guldan\Publish\</OutputPath>
+    <OutputPath>../_Assembly/</OutputPath>
     <DocumentationFile></DocumentationFile>
   </PropertyGroup>
 
@@ -23,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="configs\" />
     <Folder Include="Logs\" />
   </ItemGroup>
 
