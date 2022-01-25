@@ -5,7 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Guldan.Data\Guldan.Data.csproj" />
+    <Folder Include="Dapper\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Guldan.Common\Guldan.Common.csproj" />
   </ItemGroup>
 
 </Project>

@@ -8,4 +8,10 @@
     <ProjectReference Include="..\..\Plugins\Guldan.Package\Guldan.Package.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Dapper\" />
+    <Folder Include="Orm\" />
+    <Folder Include="Serializer\" />
+  </ItemGroup>
+
 </Project>

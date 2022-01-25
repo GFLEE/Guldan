@@ -1,11 +1,8 @@
 ﻿using System;
 
-namespace Guldan.IService.Sys
+namespace Guldan.Service
 {
     public class Class1
     {
-
-
-
     }
 }
