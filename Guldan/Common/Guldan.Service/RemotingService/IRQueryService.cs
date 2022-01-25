@@ -36,7 +36,7 @@ namespace Guldan.Service.RemotingService
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        T GetByID(long id);
+        T GetByID(string id);
     }
     public interface IRQueryService
     {
@@ -63,6 +63,6 @@ namespace Guldan.Service.RemotingService
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        object GetByID(long id);
+        object GetByID(string id);
     }
 }

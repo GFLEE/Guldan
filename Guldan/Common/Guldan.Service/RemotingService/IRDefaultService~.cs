@@ -40,7 +40,7 @@ namespace Guldan.Service.RemotingService
         /// 根据ID删除
         /// </summary>
         /// <param name="id"></param>
-        void DeleteByID(long id);
+        void DeleteByID(string id);
         /// <summary>
         /// 删除对象
         /// </summary>
@@ -55,7 +55,7 @@ namespace Guldan.Service.RemotingService
         /// 根据id集合删除对象
         /// </summary>
         /// <param name="idList"></param>
-        void DeleteByIDList(List<long> idList);
+        void DeleteByIDList(List<string> idList);
         /// <summary>
         /// 获取新对象
         /// </summary>

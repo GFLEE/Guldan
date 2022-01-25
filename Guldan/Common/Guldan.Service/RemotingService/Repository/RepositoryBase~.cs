@@ -58,10 +58,6 @@ namespace Guldan.Service.RemotingService.Repository
                 });
             }
         }
-
-
-
-
         public List<T> Adds(List<T> entities)
         {
 
@@ -179,12 +175,12 @@ namespace Guldan.Service.RemotingService.Repository
             return new T();
 }
 
+         
 
-        public RPagerInfo<T> GetRecords(Dictionary<string, string> condition)
-{
-            return new RPagerInfo<T>();
+        PageInfo<T> IRQueryService<T>.GetRecords(Dictionary<string, string> condition)
+        {
+            throw new NotImplementedException();
         }
-
-
+ 
     }
 }
