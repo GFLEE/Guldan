@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guldan.Service.Sys", "..\Sy
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guldan.Service", "..\Common\Guldan.Service\Guldan.Service.csproj", "{F783B93C-AD10-4F31-9D2C-E8F19FC4C8E8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guldan.Repository.Sys", "..\Sys\Guldan.Repository.Sys\Guldan.Repository.Sys.csproj", "{A8308C64-060D-49EC-9C0D-72675A1FF689}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{F783B93C-AD10-4F31-9D2C-E8F19FC4C8E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F783B93C-AD10-4F31-9D2C-E8F19FC4C8E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F783B93C-AD10-4F31-9D2C-E8F19FC4C8E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8308C64-060D-49EC-9C0D-72675A1FF689}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8308C64-060D-49EC-9C0D-72675A1FF689}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8308C64-060D-49EC-9C0D-72675A1FF689}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8308C64-060D-49EC-9C0D-72675A1FF689}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -88,6 +94,7 @@ Global
 		{B7A963E8-B545-4DC2-BE60-3B58277F591B} = {848BE1BF-B435-45F9-8A28-E8A7105AD475}
 		{E2590680-AE76-448E-8CE6-BA0CB38AE818} = {848BE1BF-B435-45F9-8A28-E8A7105AD475}
 		{F783B93C-AD10-4F31-9D2C-E8F19FC4C8E8} = {1E551CDD-3AFC-42D1-A919-BEE589C11645}
+		{A8308C64-060D-49EC-9C0D-72675A1FF689} = {848BE1BF-B435-45F9-8A28-E8A7105AD475}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {05121770-1E91-4E20-8DC8-92B1103F2931}
