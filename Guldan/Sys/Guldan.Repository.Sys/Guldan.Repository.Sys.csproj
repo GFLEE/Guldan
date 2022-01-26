@@ -4,4 +4,9 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Guldan.Service\Guldan.Service.csproj" />
+    <ProjectReference Include="..\..\Guldan.Data\Guldan.Data.csproj" />
+  </ItemGroup>
+
 </Project>

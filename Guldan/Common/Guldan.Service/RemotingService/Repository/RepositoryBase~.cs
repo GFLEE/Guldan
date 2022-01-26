@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Guldan.Common.DI;
 using Guldan.Common.Service;
 using Guldan.Service.Dapper.Dao;
 using Guldan.Service.Dapper.DbContext;
@@ -23,11 +24,11 @@ namespace Guldan.Service.RemotingService.Repository
         protected IDbContext context;
         protected IDbConnection conn;
         protected IDapperDao _dapperDao;
-        public RepositoryBase(IDapperContext context, IDapperDao dapperDao)
+        public RepositoryBase()
         {
-            this.context = context;
+            this.context = BizContextFactory.GetBizContext();
+            this._dapperDao = IocService.Resolve<IDapperDao>();
             conn = ((IDapperContext)this.context).Conn;
-            _dapperDao = dapperDao;
             _dapperDao.InitConn(conn);
         }
 
