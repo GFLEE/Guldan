@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Guldan.Common.Extension
 {
-    internal static class TypeExtension
+    public static class TypeExtension
     {
         public static bool IsSimpleType(this Type type)
         {
@@ -43,4 +43,6 @@ namespace Guldan.Common.Extension
             return string.Join(",", props.Select(p => p.DeclaringType.FullName + "." + p.Name).ToArray());
         }
     }
+
+
 }
