@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Guldan.Common
+namespace Guldan.Service.Dapper.Dao
 {
-    public static class GldConst
+    public interface IDapperDao
     {
-        public const string DefaultPrimaryKey = "Id";
 
 
 
