@@ -2,7 +2,10 @@
 
 namespace Guldan.Service
 {
-    public class Class1
+    public interface IInjection
     {
+
+
+
     }
 }

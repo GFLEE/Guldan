@@ -15,31 +15,40 @@ using Guldan.Service.Dapper.Dao;
 using Guldan.Service.Dapper.Dao.Attributes;
 using Guldan.Service.Dapper.Dao.Helper;
 using Guldan.Service.Dapper.Dao.Resolver;
+using Guldan.Service.Dapper.DbContext;
 
 namespace Guldan.Service.Dapper
 {
     public class DapperDao : IDapperDao
     {
-        private static EuDialect _dialect = EuDialect.Oracle;
-        private static string _encapsulation;
-        private static string _getIdentitySql;
-        private static string _getPagedListSql;
+        private EuDialect _dialect = EuDialect.Oracle;
+        private string _encapsulation;
+        private string _getIdentitySql;
+        private string _getPagedListSql;
 
-        private static readonly ConcurrentDictionary<Type, string> TableNames = new ConcurrentDictionary<Type, string>();
-        private static readonly ConcurrentDictionary<string, string> ColumnNames = new ConcurrentDictionary<string, string>();
+        private readonly ConcurrentDictionary<Type, string> TableNames = new ConcurrentDictionary<Type, string>();
+        private readonly ConcurrentDictionary<string, string> ColumnNames = new ConcurrentDictionary<string, string>();
 
-        private static readonly ConcurrentDictionary<string, string> StringBuilderCacheDict = new ConcurrentDictionary<string, string>();
-        private static bool StringBuilderCacheEnabled = true;
+        private readonly ConcurrentDictionary<string, string> StringBuilderCacheDict = new ConcurrentDictionary<string, string>();
+        private bool StringBuilderCacheEnabled = true;
 
-        private static ITableNameResolver _tableNameResolver = new TableNameResolver();
-        private static IColumnNameResolver _columnNameResolver = new ColumnNameResolver();
+        private ITableNameResolver _tableNameResolver = new TableNameResolver();
+        private IColumnNameResolver _columnNameResolver = new ColumnNameResolver();
 
-        public DapperDao()
+        public IDbConnection Conn { get; set; }
+
+
+        public DapperDao(IDapperContext context)
         {
             SetDefaultConfigs(_dialect);
         }
+        public IDbConnection InitConn(IDbConnection dbConnection)
+        {
+            Conn = dbConnection;
+            return Conn;
+        }
 
-        public static TKey Insert<TKey, TEntity>(this IDbConnection connection, TEntity entityToInsert, IDbTransaction transaction = null, int? commandTimeout = null)
+        public TKey Insert<TKey, TEntity>(TEntity entityToInsert, IDbTransaction transaction = null, int? commandTimeout = null)
         {
             if (typeof(TEntity).IsInterface) //FallBack to BaseType Generic Method : https://stackoverflow.com/questions/4101784/calling-a-generic-method-with-a-dynamic-type
             {
@@ -47,14 +56,13 @@ namespace Guldan.Service.Dapper
                     .GetMethods().Where(methodInfo => methodInfo.Name == nameof(Insert)
                     && methodInfo.GetGenericArguments().Count() == 2).Single()
                     .MakeGenericMethod(new Type[] { typeof(TKey), entityToInsert.GetType() })
-                    .Invoke(null, new object[] { connection, entityToInsert, transaction, commandTimeout });
+                    .Invoke(null, new object[] { Conn, entityToInsert, transaction, commandTimeout });
             }
             var idProps = DapperDaoHelper.GetIdProperties(entityToInsert).ToList();
 
             if (!idProps.Any())
             {
                 throw new ArgumentException("Insert<T> 仅支持默认主键名称Id或带有KeyAttribute的键！");
-
             }
 
             var keyHasPredefinedValue = false;
@@ -127,7 +135,7 @@ namespace Guldan.Service.Dapper
                 Trace.WriteLine(String.Format("Insert: {0}", sb));
             }
 
-            var r = connection.Query(sb.ToString(), entityToInsert, transaction, true, commandTimeout);
+            var r = Conn.Query(sb.ToString(), entityToInsert, transaction, true, commandTimeout);
 
             if (keytype == typeof(Guid) || keyHasPredefinedValue)
             {
@@ -139,7 +147,7 @@ namespace Guldan.Service.Dapper
 
 
 
-        private static void BuildInsertParameters<T>(StringBuilder masterSb)
+        private void BuildInsertParameters<T>(StringBuilder masterSb)
         {
             StringBuilderCache(masterSb, $"{typeof(T).FullName}_BuildInsertParameters", sb =>
             {
@@ -160,7 +168,7 @@ namespace Guldan.Service.Dapper
 
                     if (property.Name.Equals(GldConst.DefaultPrimaryKey, StringComparison.OrdinalIgnoreCase) && property.GetCustomAttributes(true).All(attr => attr.GetType().Name != typeof(RequiredAttribute).Name) && property.PropertyType != typeof(Guid)) continue;
 
-                    sb.Append(DapperDaoHelper.GetColumnName(property, ColumnNames));
+                    sb.Append(DapperDaoHelper.GetColumnName(property, ColumnNames, _encapsulation, _dialect.ToString()));
                     if (i < props.Count() - 1)
                         sb.Append(", ");
                 }
@@ -168,7 +176,7 @@ namespace Guldan.Service.Dapper
                     sb.Remove(sb.Length - 2, 2);
             });
         }
-        private static void StringBuilderCache(StringBuilder sb, string cacheKey, Action<StringBuilder> stringBuilderAction)
+        private void StringBuilderCache(StringBuilder sb, string cacheKey, Action<StringBuilder> stringBuilderAction)
         {
             if (StringBuilderCacheEnabled && StringBuilderCacheDict.TryGetValue(cacheKey, out string value))
             {
@@ -183,7 +191,7 @@ namespace Guldan.Service.Dapper
             sb.Append(value);
         }
 
-        public static void SetDefaultConfigs(EuDialect EuDialect)
+        public void SetDefaultConfigs(EuDialect EuDialect)
         {
             switch (EuDialect)
             {
@@ -226,7 +234,7 @@ namespace Guldan.Service.Dapper
             }
         }
 
-        public static string GetDialect()
+        public string GetDialect()
         {
             return _dialect.ToString();
         }

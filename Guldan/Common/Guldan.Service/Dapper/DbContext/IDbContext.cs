@@ -1,15 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Guldan.Service.RemotingService;
 
 namespace Guldan.Service.Dapper.DbContext
 {
-    public interface IDapperContext : IDbContext
+    public interface IDbContext : IDisposable
     {
-        IDbConnection Conn { get; }
-        void InitConnection();
+        void UseTransaction(Action p);
+
+
+
+
+
+
+
     }
 }

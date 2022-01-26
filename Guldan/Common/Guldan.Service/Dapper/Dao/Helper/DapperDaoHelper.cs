@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Guldan.Common;
+using Guldan.Common.Enum;
 using Guldan.Common.Extension;
 using Guldan.Service.Dapper.Dao.Attributes;
 using Guldan.Service.Dapper.Dao.Resolver;
@@ -111,29 +112,29 @@ namespace Guldan.Service.Dapper.Dao.Helper
         {
             var type = entity.GetType();
             return GetTableName(type, TableNames);
-        }
+}
 
-        public static string GetTableName(Type type, ConcurrentDictionary<Type, string> TableNames)
+        public static string GetTableName(Type type, ConcurrentDictionary<Type, string> TableNames, string _encapsulation, string _dialect)
         {
             string tableName;
 
             if (TableNames.TryGetValue(type, out tableName))
                 return tableName;
 
-            tableName = _tableNameResolver.ResolveTableName(type);
+            tableName = _tableNameResolver.ResolveTableName(type, _encapsulation, _dialect);
 
             TableNames.AddOrUpdate(type, tableName, (t, v) => tableName);
 
             return tableName;
         }
-        public static string GetColumnName(PropertyInfo propertyInfo, ConcurrentDictionary<string, string> ColumnNames)
+        public static string GetColumnName(PropertyInfo propertyInfo, ConcurrentDictionary<string, string> ColumnNames, string _encapsulation, string _dialect)
         {
             string columnName, key = string.Format("{0}.{1}", propertyInfo.DeclaringType, propertyInfo.Name);
 
             if (ColumnNames.TryGetValue(key, out columnName))
                 return columnName;
 
-            columnName = _columnNameResolver.ResolveColumnName(propertyInfo);
+            columnName = _columnNameResolver.ResolveColumnName(propertyInfo, _encapsulation, _dialect);
 
             ColumnNames.AddOrUpdate(key, columnName, (t, v) => columnName);
 

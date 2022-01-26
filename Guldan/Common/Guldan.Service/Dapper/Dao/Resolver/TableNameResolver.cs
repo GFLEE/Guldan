@@ -11,28 +11,32 @@ namespace Guldan.Service.Dapper.Dao.Resolver
 {
     public class TableNameResolver : ITableNameResolver
     {
-        public virtual string ResolveTableName(Type type)
+        private string Encapsulate(string databaseword, string _encapsulation)
+        {
+            return string.Format(_encapsulation, databaseword);
+        }
+        public virtual string ResolveTableName(Type type, string _encapsulation, string _dialect)
         {
             string tableName;
 
-            if (GetDialect() == EuDialect.DB2.ToString())
+            if (_dialect.ToString() == EuDialect.DB2.ToString())
             {
                 tableName = type.Name;
             }
             else
             {
-                tableName = Encapsulate(type.Name);
+                tableName = Encapsulate(type.Name, _encapsulation);
             }
 
             var tableattr = type.GetCustomAttributes(true).SingleOrDefault(attr => attr.GetType().Name == typeof(TableAttribute).Name) as dynamic;
             if (tableattr != null)
             {
-                tableName = Encapsulate(tableattr.Name);
+                tableName = Encapsulate(tableattr.Name, _encapsulation);
                 try
                 {
                     if (!String.IsNullOrEmpty(tableattr.Schema))
                     {
-                        string schemaName = Encapsulate(tableattr.Schema);
+                        string schemaName = Encapsulate(tableattr.Schema, _encapsulation);
                         tableName = String.Format("{0}.{1}", schemaName, tableName);
                     }
                 }

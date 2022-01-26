@@ -27,11 +27,12 @@ namespace Guldan
                     webBuilder.UseSerilog((context, logger) =>
                      {
                          string tmplate = "¡¾{Timestamp:HH:mm:ss} {Level:u3}¡¿ {Message:lj}{NewLine}{Exception}";
+                         var path = $"{AppDomain.CurrentDomain}./Logs";
                          logger.ReadFrom.Configuration(context.Configuration);
                          logger.Enrich.FromLogContext()
                          .WriteTo.Console(theme: AnsiConsoleTheme.Code,
                              outputTemplate: tmplate)
-                         .WriteTo.Async(a => a.File("./Logs/.txt", rollingInterval: RollingInterval.Day,
+                         .WriteTo.Async(a => a.File($"{path}/.txt", rollingInterval: RollingInterval.Day,
                                         fileSizeLimitBytes: 10485760, retainedFileCountLimit: 90,
                                         rollOnFileSizeLimit: true, shared: true, buffered: false, outputTemplate: tmplate));
                      }

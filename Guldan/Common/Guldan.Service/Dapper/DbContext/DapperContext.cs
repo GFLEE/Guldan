@@ -9,9 +9,8 @@ using System.Threading.Tasks;
 
 namespace Guldan.Service.Dapper.DbContext
 {
-    public class DapperContext : IUnitOfWork, IDapperContext
+    public class DapperContext : DisposableObject, IUnitOfWork, IDapperContext
     {
-
         private readonly ConnectionStringSettings _connectionSeting =
            ConfigurationManager.ConnectionStrings["BudisengFirstDemoInfo"];
         public Guid Id { private set; get; }
@@ -20,6 +19,7 @@ namespace Guldan.Service.Dapper.DbContext
 
         public DapperContext()
         {
+            Id = new Guid();
             InitConnection();
         }
 
@@ -46,6 +46,29 @@ namespace Guldan.Service.Dapper.DbContext
             set { _committed = value; }
             get { return _committed; }
         }
+
+        public void UseTransaction(Action p)
+        {
+            try
+            {
+                this.BeginTran();
+
+                p.Invoke();
+
+                this.Commit();
+            }
+            catch (Exception ex)
+            { 
+                this.Rollback();
+                throw ex;
+            }
+            finally
+            {
+                this.Dispose(true);
+            }
+
+        }
+
         public void BeginTran()
         {
             this.Tran = this.Conn.BeginTransaction();
@@ -72,24 +95,24 @@ namespace Guldan.Service.Dapper.DbContext
             }
         }
 
-        protected void Dispose(bool disposing)
+
+
+        protected override void Dispose(bool disposing)
         {
             if (!disposing)
             {
                 return;
             }
-            if (this.Conn.State != ConnectionState.Open) return;
+            if (this.Conn.State != ConnectionState.Open)
+            {
+                return;
+            }
             Commit();
             this.Conn.Close();
             this.Conn.Dispose();
         }
 
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
 
-        }
 
         ~DapperContext()
         {

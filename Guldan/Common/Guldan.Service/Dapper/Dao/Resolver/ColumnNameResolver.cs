@@ -11,26 +11,30 @@ using Guldan.Common.Enum;
 namespace Guldan.Service.Dapper.Dao.Resolver
 {
     public class ColumnNameResolver : IColumnNameResolver
-{
-        public virtual string ResolveColumnName(PropertyInfo propertyInfo)
+    {
+        private string Encapsulate(string databaseword, string _encapsulation)
+        {
+            return string.Format(_encapsulation, databaseword);
+        }
+        public virtual string ResolveColumnName(PropertyInfo propertyInfo, string _encapsulation, string _dialect)
         {
             string columnName;
 
-            if (GetDialect() == Dialect.DB2.ToString())
+            if (_dialect.ToString() == EuDialect.DB2.ToString())
             {
                 columnName = propertyInfo.Name;
             }
             else
             {
-                columnName = Encapsulate(propertyInfo.Name);
+                columnName = Encapsulate(propertyInfo.Name, _encapsulation);
             }
 
             var columnattr = propertyInfo.GetCustomAttributes(true).SingleOrDefault(attr => attr.GetType().Name == typeof(ColumnAttribute).Name) as dynamic;
             if (columnattr != null)
             {
-                columnName = Encapsulate(columnattr.Name);
+                columnName = Encapsulate(columnattr.Name, _encapsulation);
                 if (Debugger.IsAttached)
-                    Trace.WriteLine(String.Format("Column name for type overridden from {0} to {1}", propertyInfo.Name, columnName));
+                    Trace.WriteLine(String.Format("列名由{0}重写至{1}", propertyInfo.Name, columnName));
             }
             return columnName;
         }

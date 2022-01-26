@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Guldan.Common.Service;
+using Guldan.Service.Dapper.Dao;
+using Guldan.Service.Dapper.DbContext;
+using Guldan.Service.Factory;
 
 namespace Guldan.Service.RemotingService.Repository
 {
@@ -13,23 +17,31 @@ namespace Guldan.Service.RemotingService.Repository
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="TRepository"></typeparam>
     public abstract class RepositoryBase<T, TRepository>
-        : RepositryAbs<T, TRepository>, IRepository<T, TRepository>, IRDefaultService<T>
+        : RepositoryAbs<T, TRepository>, IRepository<T, TRepository>, IRDefaultService<T>
          where T : class, new()
     {
+        protected IDbContext context;
+        protected IDbConnection conn;
+        protected IDapperDao _dapperDao;
+        public RepositoryBase(IDapperContext context, IDapperDao dapperDao)
+        {
+            this.context = context;
+            conn = ((IDapperContext)this.context).Conn;
+            _dapperDao = dapperDao;
+            _dapperDao.InitConn(conn);
+        }
+
 
         public T Add(T entity)
         {
-            using (var context = BizContextFactory.GetBizContext())
+            T data = null;
+            context.UseTransaction(() =>
             {
-                T data = null;
-                context.UseTransaction(() =>
-                {
-                    OnBeforeAdd(context, entity);
-                    data = context.Insert(entity);
-                    OnAfterAdd(context, entity);
-                });
-                return data;
-            }
+                OnBeforeAdd(context, entity);
+                data = _dapperDao.Insert<T, T>(entity);
+                OnAfterAdd(context, entity);
+            });
+            return data;
         }
         public T Update(T entity)
         {
@@ -39,7 +51,7 @@ namespace Guldan.Service.RemotingService.Repository
                 conext.UseTransaction(() =>
                 {
                     OnBeforeUpate(conext, entity);
-                    conext.Update(entity);
+                    // conext.Update(entity);
                     OnAfterUpate(conext, entity);
                 });
                 return data;
@@ -53,7 +65,7 @@ namespace Guldan.Service.RemotingService.Repository
                 conext.UseTransaction(() =>
                 {
                     OnBeforeDelete(conext, entity);
-                    conext.Delete(entity);
+                    // conext.Delete(entity);
                     OnAfterDelete(conext, entity);
                 });
             }
@@ -69,7 +81,7 @@ namespace Guldan.Service.RemotingService.Repository
                     {
                         OnBeforeAdd(conext, entity);
                     }
-                    conext.InsertRange(entities);
+                    // conext.InsertRange(entities);
                     foreach (T entity in entities)
                     {
                         OnAfterAdd(conext, entity);
@@ -90,7 +102,7 @@ namespace Guldan.Service.RemotingService.Repository
                     {
                         OnBeforeUpate(conext, entity);
                     }
-                    conext.Update(entities);
+                    //conext.Update(entities);
                     foreach (T entity in entities)
                     {
                         OnAfterUpate(conext, entity);
@@ -110,7 +122,7 @@ namespace Guldan.Service.RemotingService.Repository
                     {
                         OnBeforeDelete(conext, entity);
                     }
-                    conext.Delete(entities);
+                    // conext.Delete(entities);
                     foreach (T entity in entities)
                     {
                         OnAfterDelete(conext, entity);
@@ -127,7 +139,7 @@ namespace Guldan.Service.RemotingService.Repository
                 {
                     foreach (var id in idList)
                     {
-                        conext.DeleteByKey<T>((object)id);
+                        // conext.DeleteByKey<T>((object)id);
                     }
                 });
 
@@ -140,7 +152,7 @@ namespace Guldan.Service.RemotingService.Repository
             {
                 conext.UseTransaction(() =>
                 {
-                    conext.DeleteByKey<T>((object)id);
+                    // conext.DeleteByKey<T>((object)id);
                 });
             }
         }
@@ -148,8 +160,8 @@ namespace Guldan.Service.RemotingService.Repository
         {
             using (var conext = BizContextFactory.GetBizContext())
             {
-                var data = conext.QueryByKey<T>((object)id);
-                return data;
+                // var data = conext.QueryByKey<T>((object)id);
+                return default(T);
             }
         }
 
@@ -173,14 +185,14 @@ namespace Guldan.Service.RemotingService.Repository
         public T GetNew()
         {
             return new T();
-}
+        }
 
-         
+
 
         PageInfo<T> IRQueryService<T>.GetRecords(Dictionary<string, string> condition)
         {
             throw new NotImplementedException();
         }
- 
+
     }
 }

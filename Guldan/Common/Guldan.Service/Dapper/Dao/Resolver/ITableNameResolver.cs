@@ -8,7 +8,7 @@ namespace Guldan.Service.Dapper.Dao.Resolver
 {
     public interface ITableNameResolver
     {
-        string ResolveTableName(Type type);
+        string ResolveTableName(Type type, string _encapsulation, string _dialect);
 
     }
 

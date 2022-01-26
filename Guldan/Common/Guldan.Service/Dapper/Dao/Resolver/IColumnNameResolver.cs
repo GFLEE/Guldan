@@ -9,6 +9,6 @@ namespace Guldan.Service.Dapper.Dao.Resolver
 {
     public interface IColumnNameResolver
     {
-        string ResolveColumnName(PropertyInfo propertyInfo);
+        string ResolveColumnName(PropertyInfo propertyInfo, string _encapsulation, string _dialect);
     }
 }
