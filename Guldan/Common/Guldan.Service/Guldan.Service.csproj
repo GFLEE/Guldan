@@ -8,4 +8,8 @@
     <ProjectReference Include="..\Guldan.Common\Guldan.Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Dapper\Dao\Attribute\" />
+  </ItemGroup>
+
 </Project>

@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Guldan.Service.Dapper.Orm
+namespace Guldan.Service.Dapper
 {
-    public class DapperDao
+    public class DapperDaoAsync
     {
+
+
 
 
 
