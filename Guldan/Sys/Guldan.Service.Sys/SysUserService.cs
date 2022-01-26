@@ -9,7 +9,11 @@ namespace Guldan.Service.Sys
 {
     public class SysUserService : ISysUserService
     {
+        public SysUserService()
+        {
 
+
+        }
 
 
 

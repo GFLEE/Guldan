@@ -1,8 +1,9 @@
 ﻿using System;
+using Guldan.Common;
 
 namespace Guldan.Service
 {
-    public interface IInjection
+    public class Module : IInjection
     {
 
 

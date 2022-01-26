@@ -23,6 +23,8 @@ using CrystalQuartz.Core.SchedulerProviders;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Guldan.QuartzNet.Base;
 using Guldan.Service;
+using Guldan.Common;
+using Autofac.Core;
 
 namespace Guldan
 {
@@ -34,10 +36,10 @@ namespace Guldan
             Console.Title = "Guldan";
             Configuration = configuration;
         }
-         
+
         public void ConfigureServices(IServiceCollection services)
         {
-        
+
             services.AddCustomServices();
             services.Configure<KestrelServerOptions>(x => x.AllowSynchronousIO = true)
                 .Configure<IISServerOptions>(x => x.AllowSynchronousIO = true);
@@ -51,6 +53,11 @@ namespace Guldan
             {
                 GuldanIOC.ServiceProvider = new AutofacServiceProvider(container);
             });
+
+            //var assbs = typeof(IInjection).
+            builder.RegisterAssemblyTypes(IServices, Services)
+         .Where(t => t.Name.EndsWith("Service"))
+         .AsImplementedInterfaces();
         }
 
 
