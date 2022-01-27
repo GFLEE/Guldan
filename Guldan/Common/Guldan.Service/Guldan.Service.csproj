@@ -8,8 +8,4 @@
     <ProjectReference Include="..\Guldan.Common\Guldan.Common.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Entity\" />
-  </ItemGroup>
-
 </Project>

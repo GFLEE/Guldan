@@ -12,6 +12,7 @@
     <Folder Include="Dapper\" />
     <Folder Include="Orm\" />
     <Folder Include="Serializer\" />
+    <Folder Include="Entity\" />
   </ItemGroup>
 
 </Project>
