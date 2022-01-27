@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="FreeSql\" />
+    <Folder Include="Entity\" />
   </ItemGroup>
 
 </Project>

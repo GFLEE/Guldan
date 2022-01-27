@@ -1,0 +1,1 @@
+﻿FreeSql.Generator -Razor 1 -NameOptions 0,0,0,0 -NameSpace Guldan.Data -DB "Oracle,user id=guldan;password=guldan;data source=//127.0.0.1:1521/XE;pooling=true;max pool size=2"
