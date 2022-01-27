@@ -25,6 +25,7 @@ using Guldan.QuartzNet.Base;
 using Guldan.Service;
 using Guldan.Common;
 using Autofac.Core;
+using System.Reflection;
 
 namespace Guldan
 {
@@ -55,9 +56,11 @@ namespace Guldan
             });
 
             //var assbs = typeof(IInjection).
-            builder.RegisterAssemblyTypes(IServices, Services)
-         .Where(t => t.Name.EndsWith("Service"))
-         .AsImplementedInterfaces();
+            builder.RegisterAssemblyTypes(Assembly.Load("Guldan.Service"));
+
+            //   builder.RegisterAssemblyTypes(IServices, Services)
+            //.Where(t => t.Name.EndsWith("Service"))
+            //.AsImplementedInterfaces();
         }
 
 

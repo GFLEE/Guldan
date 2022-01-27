@@ -58,7 +58,7 @@ namespace Guldan.Service.Dapper.DbContext
                 this.Commit();
             }
             catch (Exception ex)
-            { 
+            {
                 this.Rollback();
                 throw ex;
             }
@@ -112,7 +112,10 @@ namespace Guldan.Service.Dapper.DbContext
             this.Conn.Dispose();
         }
 
-
+        public virtual T Add<T>(T entity)
+        {
+            return default(T);
+        }
 
         ~DapperContext()
         {

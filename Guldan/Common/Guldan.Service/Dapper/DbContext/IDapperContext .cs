@@ -11,5 +11,6 @@ namespace Guldan.Service.Dapper.DbContext
     {
         IDbConnection Conn { get; }
         void InitConnection();
+ 
     }
 }

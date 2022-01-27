@@ -12,7 +12,7 @@ namespace Guldan.Service.Factory
 {
     public class BizContextFactory
     {
-        internal static IDbContext GetBizContext()
+        public static IDbContext GetBizContext()
         {
             return IocService.Resolve<IDbContext>();
         }

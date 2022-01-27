@@ -13,6 +13,9 @@
     <PackageReference Include="CrystalQuartz.AspNetCore" Version="6.8.1" />
     <PackageReference Include="Dapper" Version="2.0.123" />
     <PackageReference Include="DapperExtensions" Version="1.7.0" />
+    <PackageReference Include="FreeSql" Version="3.0.100" />
+    <PackageReference Include="FreeSql.DbContext" Version="3.0.100" />
+    <PackageReference Include="FreeSql.Provider.Oracle" Version="3.0.100" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
