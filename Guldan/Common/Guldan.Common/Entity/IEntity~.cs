@@ -2,19 +2,17 @@
 using System;
 using System.ComponentModel;
 
-namespace Guldan.Service.Entity
+namespace Guldan.Common
 {
     public interface IEntityUpdate<TKey>
     {
-        string ModifiedUserId { get; set; }
-        string ModifiedUserName { get; set; }
-        DateTime? ModifiedTime { get; set; }
+        string Modify_By { get; set; }
+        DateTime? Modify_Time { get; set; }
     }
     public interface IEntityAdd<TKey>
     {
-        string CreatedUserId { get; set; }
-        string CreatedUserName { get; set; }
-        DateTime? CreatedTime { get; set; }
+        string Create_By { get; set; }
+        DateTime? Create_Time { get; set; }
     }
     public interface IEntityVersion
     {
@@ -28,7 +26,7 @@ namespace Guldan.Service.Entity
         /// <summary>
         /// 是否删除
         /// </summary>
-        bool IsDeleted { get; set; }
+        bool Is_Deleted { get; set; }
     }
     public interface IEntity<TKey>
     {

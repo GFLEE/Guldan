@@ -26,6 +26,7 @@ using Guldan.Service;
 using Guldan.Common;
 using Autofac.Core;
 using System.Reflection;
+using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace Guldan
 {
@@ -45,6 +46,10 @@ namespace Guldan
             services.Configure<KestrelServerOptions>(x => x.AllowSynchronousIO = true)
                 .Configure<IISServerOptions>(x => x.AllowSynchronousIO = true);
             services.AddControllers();
+
+            var timeSpan = TimeSpan.FromMinutes(30);
+            IdleBus<IFreeSql> ib = new IdleBus<IFreeSql>(timeSpan);
+            services.AddSingleton(ib);
         }
 
 

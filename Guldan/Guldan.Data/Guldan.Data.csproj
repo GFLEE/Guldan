@@ -5,11 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Plugins\Guldan.Package\Guldan.Package.csproj" />
+    <Folder Include="Entity\Extension\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Entity\Extension\" />
+    <ProjectReference Include="..\Common\Guldan.Common\Guldan.Common.csproj" />
   </ItemGroup>
 
 </Project>

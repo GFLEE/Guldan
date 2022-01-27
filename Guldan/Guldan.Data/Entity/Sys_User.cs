@@ -5,13 +5,13 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Guldan.Service.Entity;
+using Guldan.Common;
 using FreeSql.DataAnnotations;
 
 namespace Guldan.Data {
 
 	[JsonObject(MemberSerialization.OptIn), Table(DisableSyncStructure = true)]
-	public partial class SYS_USER : EntityBase
+	public partial class SYS_USER
 	{
 
 		[JsonProperty, Column(DbType = "VARCHAR2(64 BYTE)", IsPrimary = true, IsNullable = false)]
@@ -27,7 +27,19 @@ namespace Guldan.Data {
 		/// 创建时间
 		/// </summary>
 		[JsonProperty, Column(DbType = "DATE(7)")]
-		public DateTime? CREATE_DATE { get; set; }
+		public DateTime? CREATE_TIME { get; set; }
+
+		/// <summary>
+		/// 是否删除
+		/// </summary>
+		[JsonProperty, Column(DbType = "NUMBER(22)")]
+		public decimal? IS_DELETED { get; set; }
+
+		[JsonProperty, Column(DbType = "VARCHAR2(64 BYTE)")]
+		public string MODIFY_BY { get; set; }
+
+		[JsonProperty, Column(DbType = "DATE(7)")]
+		public DateTime? MODIFY_TIME { get; set; }
 
 		/// <summary>
 		/// 昵称
@@ -52,6 +64,9 @@ namespace Guldan.Data {
 		/// </summary>
 		[JsonProperty, Column(DbType = "VARCHAR2(64 BYTE)")]
 		public string USER_NAME { get; set; }
+
+		[JsonProperty, Column(DbType = "VARCHAR2(64 BYTE)")]
+		public string VERSION { get; set; }
 
 	}
 
