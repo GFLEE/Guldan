@@ -24,20 +24,18 @@ namespace Guldan.Service
         {
             services.AddScoped<GldWorkManager>();
 
-            #region FreeSql
-
             var freeSqlBuilder = new FreeSqlBuilder()
                     .UseConnectionString(dbConfig.Type, dbConfig.ConnectionString)
                     .UseAutoSyncStructure(false)
                     .UseLazyLoading(false)
                     .UseNoneCommandParameter(true);
 
-             freeSqlBuilder.UseMonitorCommand(cmd => { }, (cmd, traceLog) =>
-            {
-                Console.WriteLine($"{cmd.CommandText}\r\n");
-            });
+            freeSqlBuilder.UseMonitorCommand(cmd => { }, (cmd, traceLog) =>
+           {
+               Console.WriteLine($"{cmd.CommandText}\r\n");
+           });
 
- 
+
             var fsql = freeSqlBuilder.Build();
             fsql.GlobalFilter.Apply<IEntitySoftDelete>("SoftDelete", a => a.IsDeleted == false);
 
@@ -57,15 +55,16 @@ namespace Guldan.Service
             {
                 DbHelper.AuditValue(e, timeOffset, user);
             };
-             
+
 
             fsql.Aop.CurdBefore += (s, e) =>
             {
                 Console.WriteLine($"{e.Sql}\r\n");
             };
-             
+
             services.AddSingleton(fsql);
 
+            return Task.CompletedTask;
         }
 
 
