@@ -6,6 +6,7 @@ using FreeSql;
 using Guldan.Cache;
 using Guldan.Common;
 using Guldan.Common.Config;
+using Guldan.Common.Extension;
 using Guldan.Service.FreeSql;
 using Guldan.Service.FreeSql.Base;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,14 +17,15 @@ using static Org.BouncyCastle.Math.EC.ECCurve;
 namespace Guldan.Service
 {
     public static class DbService
-    {
-        public static Task AddDbAsync(this IServiceCollection services, IHostEnvironment env)
+    { 
+        public static Task AddDbService(this IServiceCollection services, IHostEnvironment env)
         {
             services.AddScoped<GldWorkManager>();
             var cacheService = services.BuildServiceProvider().GetService<ICache>();
-            var dbConfig = cacheService.Get<DbConfig>("DbConfig");
+            var dbConfig = cacheService.Get<DbConfig>("DbConfig").configs.Where(p => p.isEnable).FirstOrDefault();
+            dbConfig.IsObJNull().ThenException("没有找到可用的数据库配置 ！");
             var flbulder = new FreeSqlBuilder()
-                    .UseConnectionString(dbConfig.Type, dbConfig.ConnectionString)
+                    .UseConnectionString(dbConfig.type, dbConfig.connectionString)
                     .UseAutoSyncStructure(false)
                     .UseLazyLoading(false)
                     .UseNoneCommandParameter(true);

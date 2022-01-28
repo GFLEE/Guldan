@@ -27,16 +27,22 @@ using Guldan.Common;
 using Autofac.Core;
 using System.Reflection;
 using static Org.BouncyCastle.Math.EC.ECCurve;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Guldan.Cache;
 
 namespace Guldan
 {
     public class Startup
     {
         public IConfiguration Configuration { get; }
-        public Startup(IConfiguration configuration)
+        public IWebHostEnvironment Env { get; }
+
+        public IServiceCollection _services { get; set; }
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Console.Title = "Guldan";
             Configuration = configuration;
+            Env = env;
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -47,9 +53,18 @@ namespace Guldan
                 .Configure<IISServerOptions>(x => x.AllowSynchronousIO = true);
             services.AddControllers();
 
+            services.AddSingleton<ICache, MemoryCache>();
+
+
+            // services.AddConfigServices(Env).Wait();
+
             var timeSpan = TimeSpan.FromMinutes(30);
             IdleBus<IFreeSql> ib = new IdleBus<IFreeSql>(timeSpan);
+
             services.AddSingleton(ib);
+
+            //services.AddDbService(Env).Wait();
+
         }
 
 
@@ -58,6 +73,10 @@ namespace Guldan
             builder.RegisterBuildCallback((container) =>
             {
                 GuldanIOC.ServiceProvider = new AutofacServiceProvider(container);
+
+                _services.AddConfigServices(Env).Wait();
+
+
             });
 
             //var assbs = typeof(IInjection).

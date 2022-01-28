@@ -12,15 +12,21 @@ namespace Guldan.Common.Config
     /// </summary>
     public class DbConfig
     {
-        public DataType Type { get; set; }
 
-        public string ConnectionString { get; set; }
+        public List<DbConfigDetail> configs { get; set; } = new List<DbConfigDetail>();
+        public int idleTime { get; set; } = 10;
 
-        public int IdleTime { get; set; } = 10;
+        public bool monitorCommand { get; set; } = false;
 
-        public bool MonitorCommand { get; set; } = false;
+        public bool curd { get; set; } = false;
 
-        public bool Curd { get; set; } = false;
+    }
+
+    public class DbConfigDetail
+    {
+        public DataType type { get; set; }
+        public string connectionString { get; set; }
+        public bool isEnable { get; set; }
 
     }
 }
