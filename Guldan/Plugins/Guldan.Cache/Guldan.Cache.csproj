@@ -4,4 +4,8 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Guldan.Common\Guldan.Common.csproj" />
+  </ItemGroup>
+
 </Project>

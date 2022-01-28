@@ -24,38 +24,27 @@ namespace Guldan.Service
         {
             services.AddScoped<GldWorkManager>();
 
-            var freeSqlBuilder = new FreeSqlBuilder()
+            var flbulder = new FreeSqlBuilder()
                     .UseConnectionString(dbConfig.Type, dbConfig.ConnectionString)
                     .UseAutoSyncStructure(false)
                     .UseLazyLoading(false)
                     .UseNoneCommandParameter(true);
 
-            freeSqlBuilder.UseMonitorCommand(cmd => { }, (cmd, traceLog) =>
+            flbulder.UseMonitorCommand(cmd => { }, (cmd, traceLog) =>
            {
                Console.WriteLine($"{cmd.CommandText}\r\n");
            });
 
 
-            var fsql = freeSqlBuilder.Build();
-            fsql.GlobalFilter.Apply<IEntitySoftDelete>("SoftDelete", a => a.IsDeleted == false);
-
-            //配置实体
-            var appConfig = new ConfigHelper().Get<AppConfig>("appconfig", env.EnvironmentName);
-            DbHelper.ConfigEntity(fsql, appConfig);
-
+            var fsql = flbulder.Build();
+            fsql.GlobalFilter.Apply<IEntitySoftDelete>("SoftDelete", a => a.Is_Deleted == false);
 
             var user = services.BuildServiceProvider().GetService<IUser>();
 
-
-            //计算服务器时间
-            var serverTime = fsql.Select<DualEntity>().Limit(1).First(a => DateTime.UtcNow);
-            var timeOffset = DateTime.UtcNow.Subtract(serverTime);
-            DbHelper.TimeOffset = timeOffset;
             fsql.Aop.AuditValue += (s, e) =>
-            {
-                DbHelper.AuditValue(e, timeOffset, user);
-            };
-
+           {
+               DbHelper.AuditValue(e, TimeSpan.FromMilliseconds(0), user);
+           };
 
             fsql.Aop.CurdBefore += (s, e) =>
             {
@@ -66,9 +55,6 @@ namespace Guldan.Service
 
             return Task.CompletedTask;
         }
-
-
-
 
     }
 }
