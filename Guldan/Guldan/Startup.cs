@@ -62,6 +62,7 @@ namespace Guldan
 
             //var assbs = typeof(IInjection).
             builder.RegisterAssemblyTypes(Assembly.Load("Guldan.Service"));
+            builder.RegisterAssemblyTypes(Assembly.Load("Guldan.Cache"));
 
             //   builder.RegisterAssemblyTypes(IServices, Services)
             //.Where(t => t.Name.EndsWith("Service"))

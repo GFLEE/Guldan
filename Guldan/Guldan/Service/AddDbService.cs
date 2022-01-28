@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FreeSql;
+using Guldan.Cache;
 using Guldan.Common;
+using Guldan.Common.Config;
 using Guldan.Service.FreeSql;
 using Guldan.Service.FreeSql.Base;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,15 +17,11 @@ namespace Guldan.Service
 {
     public static class DbService
     {
-        /// <summary>
-        /// 添加数据库
-        /// </summary>
-        /// <param name="services"></param>
-        /// <param name="env"></param>
         public static Task AddDbAsync(this IServiceCollection services, IHostEnvironment env)
         {
             services.AddScoped<GldWorkManager>();
-
+            var cacheService = services.BuildServiceProvider().GetService<ICache>();
+            var dbConfig = cacheService.Get<DbConfig>("DbConfig");
             var flbulder = new FreeSqlBuilder()
                     .UseConnectionString(dbConfig.Type, dbConfig.ConnectionString)
                     .UseAutoSyncStructure(false)

@@ -26,6 +26,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Common\Guldan.Common\Guldan.Common.csproj" />
     <ProjectReference Include="..\Common\Guldan.Service\Guldan.Service.csproj" />
+    <ProjectReference Include="..\Plugins\Guldan.Cache\Guldan.Cache.csproj" />
     <ProjectReference Include="..\Plugins\Guldan.Package\Guldan.Package.csproj" />
     <ProjectReference Include="..\Plugins\Guldan.QuartzNet\Guldan.QuartzNet.csproj" />
     <ProjectReference Include="..\Sys\Guldan.IService.Sys\Guldan.IService.Sys.csproj" />
