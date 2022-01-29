@@ -29,6 +29,8 @@ using System.Reflection;
 using static Org.BouncyCastle.Math.EC.ECCurve;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Guldan.Cache;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace Guldan
 {
@@ -37,7 +39,6 @@ namespace Guldan
         public IConfiguration Configuration { get; }
         public IWebHostEnvironment Env { get; }
 
-        public IServiceCollection _services { get; set; }
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Console.Title = "Guldan";
@@ -47,24 +48,44 @@ namespace Guldan
 
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddCustomServices();
             services.Configure<KestrelServerOptions>(x => x.AllowSynchronousIO = true)
                 .Configure<IISServerOptions>(x => x.AllowSynchronousIO = true);
-            services.AddControllers();
 
+            #region 控制器
+
+            services.AddControllers(options =>
+            {
+                //options.Filters.Add<AdminExceptionFilter>();
+                //if (_appConfig.Log.Operation)
+                //{
+                //    options.Filters.Add<LogActionFilter>();
+                //}
+                //禁止去除ActionAsync后缀
+                options.SuppressAsyncSuffixInActionNames = false;
+            }) 
+            .AddNewtonsoftJson(options =>
+            {
+                //忽略循环引用
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                //使用驼峰 首字母小写
+                options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                //设置时间格式
+                options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
+            })
+            .AddControllersAsServices();
+
+            #endregion 控制器
+
+            services.AddMemoryCache();
             services.AddSingleton<ICache, MemoryCache>();
 
+            services.AddConfigServices(Env).Wait();
 
-            // services.AddConfigServices(Env).Wait();
+            services.AddDbService(Env).Wait();
 
-            var timeSpan = TimeSpan.FromMinutes(30);
-            IdleBus<IFreeSql> ib = new IdleBus<IFreeSql>(timeSpan);
-
-            services.AddSingleton(ib);
-
-            //services.AddDbService(Env).Wait();
-
+            var mapper_ass = Assembly.Load("Guldan.Data");
+            services.AddAutoMapper(mapper_ass);
         }
 
 
@@ -74,7 +95,6 @@ namespace Guldan
             {
                 GuldanIOC.ServiceProvider = new AutofacServiceProvider(container);
 
-                _services.AddConfigServices(Env).Wait();
 
 
             });
@@ -86,6 +106,9 @@ namespace Guldan
             //   builder.RegisterAssemblyTypes(IServices, Services)
             //.Where(t => t.Name.EndsWith("Service"))
             //.AsImplementedInterfaces();
+
+
+
         }
 
 

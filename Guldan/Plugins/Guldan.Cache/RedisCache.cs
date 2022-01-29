@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Guldan.Common.Extension;
@@ -112,6 +113,11 @@ namespace Guldan.Cache
             }
 
             return result;
+        }
+
+        public List<string> GetAllKeys()
+        {
+            throw new NotImplementedException();
         }
     }
 }

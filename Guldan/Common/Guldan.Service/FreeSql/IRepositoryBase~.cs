@@ -10,6 +10,8 @@ namespace Guldan.Service.FreeSql
 {
     public interface IRepositoryBase<TEntity, TKey> : IBaseRepository<TEntity, TKey> where TEntity : class
     {
+         TEntity  GetNew ();
+
         /// <summary>
         /// 获得Dto
         /// </summary>

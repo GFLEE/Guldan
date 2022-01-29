@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Guldan.Cache
@@ -113,5 +114,8 @@ namespace Guldan.Cache
         /// <param name="expire">有效期</param>
         /// <returns></returns>
         Task<T> GetOrSetAsync<T>(string key, Func<Task<T>> func, TimeSpan? expire = null);
+
+        List<string> GetAllKeys();
+
     }
 }

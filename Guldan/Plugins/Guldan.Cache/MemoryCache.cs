@@ -94,6 +94,12 @@ namespace Guldan.Cache
             return true;
         }
 
+        public bool Set<T>(string key, T value)
+        {
+            _memoryCache.Set<T>(key, value);
+            return true;
+        }
+
         public bool Set(string key, object value, TimeSpan expire)
         {
             _memoryCache.Set(key, value, expire);
@@ -140,7 +146,7 @@ namespace Guldan.Cache
             return result;
         }
 
-        private List<string> GetAllKeys()
+        public List<string> GetAllKeys()
         {
             const BindingFlags flags = BindingFlags.Instance | BindingFlags.NonPublic;
             var entries = _memoryCache.GetType().GetField("_entries", flags).GetValue(_memoryCache);

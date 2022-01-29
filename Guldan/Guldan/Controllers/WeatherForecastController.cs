@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Guldan.Common;
+using Guldan.Data.Dto;
+using Guldan.IService.Sys;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -17,10 +20,13 @@ namespace Guldan.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ISysUserService _userService;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, ISysUserService userService
+            )
         {
             _logger = logger;
+            _userService = userService;
         }
 
         [HttpGet]
@@ -34,6 +40,16 @@ namespace Guldan.Controllers
                 Summary = Summaries[rng.Next(Summaries.Length)]
             })
             .ToArray();
+        }
+
+        [HttpPost]
+        public IResponse AddUser([FromBody] SysUserDto userDto)
+        {
+
+            var data = _userService.AddUser(userDto);
+
+            return ResponseInfo.Success(data);
+
         }
     }
 }

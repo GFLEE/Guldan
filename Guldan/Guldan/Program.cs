@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
+using Serilog.Sinks.RabbitMQ;
 using Serilog.Sinks.SystemConsole.Themes;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,8 @@ namespace Guldan
             .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.UseStartup<Startup>();
+
                     webBuilder.UseSerilog((context, logger) =>
                      {
                          string tmplate = "¡¾{Timestamp:HH:mm:ss} {Level:u3}¡¿ {Message:lj}{NewLine}{Exception}";
@@ -31,13 +34,31 @@ namespace Guldan
                          logger.ReadFrom.Configuration(context.Configuration);
                          logger.Enrich.FromLogContext()
                          .WriteTo.Console(theme: AnsiConsoleTheme.Code,
-                             outputTemplate: tmplate)
-                         .WriteTo.Async(a => a.File($"{path}/.txt", rollingInterval: RollingInterval.Day,
-                                        fileSizeLimitBytes: 10485760, retainedFileCountLimit: 90,
-                                        rollOnFileSizeLimit: true, shared: true, buffered: false, outputTemplate: tmplate));
+                             outputTemplate: tmplate);
+                         if (true)
+                         {
+                             logger.WriteTo.Async(a => a.File($"{path}/.txt", rollingInterval: RollingInterval.Day,
+                             fileSizeLimitBytes: 10485760, retainedFileCountLimit: 90,
+                             rollOnFileSizeLimit: true, shared: true, buffered: false, outputTemplate: tmplate));
+                         }
+                         if (true)
+                         {
+                             logger.WriteTo.RabbitMQ((clientConfig, sinkConfig) =>
+                             {
+                                 clientConfig.Username = "admin";
+                                 clientConfig.Password = "admin";
+                                 clientConfig.Exchange = "guldan";
+                                 clientConfig.ExchangeType = "direct";
+                                 clientConfig.DeliveryMode = RabbitMQDeliveryMode.Durable;
+                                 clientConfig.RouteKey = "Log";
+                                 clientConfig.Port = 5672;
+                                 clientConfig.Hostnames.Add("127.0.0.1");
+
+                             });
+
+                         }
                      }
                      );
-                    webBuilder.UseStartup<Startup>();
                 });
     }
 }

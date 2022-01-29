@@ -1,4 +1,5 @@
-﻿using Guldan.QuartzNet.Base;
+﻿using Guldan.Common.DI;
+using Guldan.QuartzNet.Base;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Quartz;
@@ -13,6 +14,7 @@ namespace Guldan.Service
     {
         public static void AddCustomServices(this IServiceCollection services)
         {
+
             services.AddQuartz();
             services.AddQuartzServer(options =>
             {

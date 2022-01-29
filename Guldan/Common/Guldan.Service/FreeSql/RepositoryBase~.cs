@@ -10,7 +10,7 @@ using Org.BouncyCastle.Utilities.Collections;
 
 namespace Guldan.Service.FreeSql
 {
-    public class RepositoryBase<TEntity, TKey> : BaseRepository<TEntity, TKey>, 
+    public class RepositoryBase<TEntity, TKey> : BaseRepository<TEntity, TKey>,
         IRepositoryBase<TEntity, TKey> where TEntity : class, new()
     {
         public IUser User { get; set; }
@@ -19,6 +19,12 @@ namespace Guldan.Service.FreeSql
         {
         }
         public RepositoryBase(IFreeSql fsql, Expression<Func<TEntity, bool>> filter, Func<string, string> asTable = null) : base(fsql, filter, asTable) { }
+
+        public TEntity GetNew()
+        {
+            var newObj = default(TEntity);
+             return newObj;
+        }
 
         public virtual Task<TDto> GetAsync<TDto>(TKey id)
         {
@@ -110,6 +116,8 @@ namespace Guldan.Service.FreeSql
 
             return true;
         }
+
+
     }
 
 }

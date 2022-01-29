@@ -17,12 +17,15 @@ using static Org.BouncyCastle.Math.EC.ECCurve;
 namespace Guldan.Service
 {
     public static class DbService
-    { 
+    {
         public static Task AddDbService(this IServiceCollection services, IHostEnvironment env)
         {
+            var dbConfigs = new ConfigHelper().GetConfig<DbConfig>("dbconfig", env.EnvironmentName);
+            services.AddSingleton(dbConfigs);
+
             services.AddScoped<GldWorkManager>();
-            var cacheService = services.BuildServiceProvider().GetService<ICache>();
-            var dbConfig = cacheService.Get<DbConfig>("DbConfig").configs.Where(p => p.isEnable).FirstOrDefault();
+
+            var dbConfig = dbConfigs.configs.Where(p => p.isEnable).FirstOrDefault();
             dbConfig.IsObJNull().ThenException("没有找到可用的数据库配置 ！");
             var flbulder = new FreeSqlBuilder()
                     .UseConnectionString(dbConfig.type, dbConfig.connectionString)
@@ -52,6 +55,11 @@ namespace Guldan.Service
             };
 
             services.AddSingleton(fsql);
+
+            var timeSpan = dbConfigs.idleTime > 0 ? TimeSpan.FromMinutes(dbConfigs.idleTime) : TimeSpan.MaxValue;
+            IdleBus<IFreeSql> ib = new IdleBus<IFreeSql>(timeSpan);
+
+            services.AddSingleton(ib);
 
             return Task.CompletedTask;
         }

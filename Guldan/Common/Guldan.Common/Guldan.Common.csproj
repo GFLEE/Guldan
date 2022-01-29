@@ -11,7 +11,6 @@
   <ItemGroup>
     <Folder Include="Dapper\" />
     <Folder Include="Orm\" />
-    <Folder Include="Helper\" />
   </ItemGroup>
 
 </Project>

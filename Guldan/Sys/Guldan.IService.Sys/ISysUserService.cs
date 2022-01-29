@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Guldan.Data;
+using Guldan.Data.Dto;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -9,7 +11,7 @@ namespace Guldan.IService.Sys
     public interface ISysUserService
     {
 
-
+        SYS_USER AddUser(SysUserDto userDto);
 
 
 
