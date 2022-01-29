@@ -31,6 +31,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Guldan.Cache;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Guldan.Register;
 
 namespace Guldan
 {
@@ -41,9 +42,9 @@ namespace Guldan
 
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
-            Console.Title = "Guldan";
             Configuration = configuration;
             Env = env;
+            HostHelper.host = env;
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -63,15 +64,13 @@ namespace Guldan
                 //}
                 //禁止去除ActionAsync后缀
                 options.SuppressAsyncSuffixInActionNames = false;
-            }) 
+            })
             .AddNewtonsoftJson(options =>
             {
                 //忽略循环引用
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                 //使用驼峰 首字母小写
                 options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                //设置时间格式
-                options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
             })
             .AddControllersAsServices();
 
@@ -94,19 +93,22 @@ namespace Guldan
             builder.RegisterBuildCallback((container) =>
             {
                 GuldanIOC.ServiceProvider = new AutofacServiceProvider(container);
-
-
-
             });
 
-            //var assbs = typeof(IInjection).
+            try
+            {
+                builder.RegisterModule(new ControllerModule());
+                builder.RegisterModule(new SingleInstanceModule());
+                builder.RegisterModule(new RepositoryModule());
+                builder.RegisterModule(new ServiceModule());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message + "\n" + ex.InnerException);
+            }
+
             builder.RegisterAssemblyTypes(Assembly.Load("Guldan.Service"));
             builder.RegisterAssemblyTypes(Assembly.Load("Guldan.Cache"));
-
-            //   builder.RegisterAssemblyTypes(IServices, Services)
-            //.Where(t => t.Name.EndsWith("Service"))
-            //.AsImplementedInterfaces();
-
 
 
         }

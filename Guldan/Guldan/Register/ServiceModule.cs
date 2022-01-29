@@ -1,4 +1,4 @@
-﻿ 
+﻿
 using Autofac;
 using Autofac.Extras.DynamicProxy;
 using Guldan.Common.Extension;
@@ -17,7 +17,7 @@ namespace Guldan.Register
 
         public ServiceModule()
         {
-            _assemblyName = "Guldan.Service.*";
+            _assemblyName = "Guldan.Service.%";
             _suffixName = "Service";
         }
 
@@ -34,17 +34,14 @@ namespace Guldan.Register
 
             var assbs = AppDomain.CurrentDomain.GetAssemblies().
                    Where(assembly => assembly.GetName().Name.Like(_assemblyName));
-            foreach (var ass in assbs)
-            {
-                var assemblyServices = Assembly.Load(_assemblyName);
-                builder.RegisterAssemblyTypes(assemblyServices)
-                .Where(a => a.Name.EndsWith(_suffixName))
-                .AsImplementedInterfaces()
-                .InstancePerLifetimeScope()
-                .PropertiesAutowired()
-                //.InterceptedBy(interceptorServiceTypes.ToArray())
-                .EnableInterfaceInterceptors();
-            }
+
+            builder.RegisterAssemblyTypes(assbs.ToArray())
+           .Where(a => a.Name.EndsWith(_suffixName))
+           .AsImplementedInterfaces()
+           .InstancePerLifetimeScope()
+           .PropertiesAutowired()
+           //.InterceptedBy(interceptorServiceTypes.ToArray())
+           .EnableInterfaceInterceptors();
 
         }
     }

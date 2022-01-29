@@ -4,6 +4,10 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>../../_Assembly/</OutputPath>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Guldan.Service\Guldan.Service.csproj" />
     <ProjectReference Include="..\..\Guldan.Data\Guldan.Data.csproj" />

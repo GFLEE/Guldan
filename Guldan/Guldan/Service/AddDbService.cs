@@ -44,10 +44,18 @@ namespace Guldan.Service
 
             var user = services.BuildServiceProvider().GetService<IUser>();
 
+            fsql.Aop.CurdAfter += (s, e) =>
+            {
+                if (e.ElapsedMilliseconds > 200)
+                {
+
+                }
+            };
+
             fsql.Aop.AuditValue += (s, e) =>
-           {
-               DbHelper.AuditValue(e, TimeSpan.FromMilliseconds(0), user);
-           };
+            {
+                DbHelper.AuditValue(e, TimeSpan.FromMilliseconds(0), user);
+            };
 
             fsql.Aop.CurdBefore += (s, e) =>
             {

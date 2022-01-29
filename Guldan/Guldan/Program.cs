@@ -1,4 +1,5 @@
 using Autofac.Extensions.DependencyInjection;
+using Guldan.Common;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -17,6 +18,7 @@ namespace Guldan
     {
         public static void Main(string[] args)
         {
+            Console.Title = "Guldan";
             CreateHostBuilder(args).Build().Run();
         }
 
@@ -47,7 +49,7 @@ namespace Guldan
                              {
                                  clientConfig.Username = "admin";
                                  clientConfig.Password = "admin";
-                                 clientConfig.Exchange = "guldan";
+                                 clientConfig.Exchange = "guldanExchange";
                                  clientConfig.ExchangeType = "direct";
                                  clientConfig.DeliveryMode = RabbitMQDeliveryMode.Durable;
                                  clientConfig.RouteKey = "Log";

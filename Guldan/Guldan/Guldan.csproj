@@ -31,6 +31,7 @@
     <ProjectReference Include="..\Plugins\Guldan.Cache\Guldan.Cache.csproj" />
     <ProjectReference Include="..\Plugins\Guldan.QuartzNet\Guldan.QuartzNet.csproj" />
     <ProjectReference Include="..\Sys\Guldan.IService.Sys\Guldan.IService.Sys.csproj" />
+    <ProjectReference Include="..\Sys\Guldan.Service.Sys\Guldan.Service.Sys.csproj" />
   </ItemGroup>
 
 </Project>

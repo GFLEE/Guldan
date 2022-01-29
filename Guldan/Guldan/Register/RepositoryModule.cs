@@ -16,7 +16,7 @@ namespace Guldan.Register
 
         public RepositoryModule()
         {
-            _assemblyName = "Guldan.Repository.*";
+            _assemblyName = "Guldan.Repository.%";
             _suffixName = "Repository";
         }
 
@@ -24,14 +24,12 @@ namespace Guldan.Register
         {
             var assbs = AppDomain.CurrentDomain.GetAssemblies().
                         Where(assembly => assembly.GetName().Name.Like(_assemblyName));
-            foreach (var ass in assbs)
-            {
-                builder.RegisterAssemblyTypes(ass)
-                        .Where(a => a.Name.EndsWith(_suffixName))
-                        .AsImplementedInterfaces()
-                        .InstancePerLifetimeScope()
-                        .PropertiesAutowired();
-            }
+
+            builder.RegisterAssemblyTypes(assbs.ToArray())
+                    .Where(a => a.Name.EndsWith(_suffixName))
+                    .AsImplementedInterfaces()
+                    .InstancePerLifetimeScope()
+                    .PropertiesAutowired();
 
             builder.RegisterGeneric(typeof(GldRepositoryBase<>)).As(typeof(IRepositoryBase<>)).InstancePerLifetimeScope();
             builder.RegisterGeneric(typeof(RepositoryBase<,>)).As(typeof(IRepositoryBase<,>)).InstancePerLifetimeScope();
