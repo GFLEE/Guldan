@@ -28,7 +28,7 @@ namespace Guldan.DynamicWebApi
             foreach (var controller in application.Controllers)
             {
                 var type = controller.ControllerType.AsType();
-                var dynamicWebApiAttr = ReflectionHelper.GetSingleAttributeOrDefaultByFullSearch<DynamicWebApiAttribute>(type.GetTypeInfo());
+                var dynamicWebApiAttr = ReflectionHelper.CheckIfAttributeUsedRecurse<DynamicWebApiAttribute>(type.GetTypeInfo());
 
                 if (!(_selectController is DefaultSelectController) && _selectController.IsController(type))
                 {
@@ -182,7 +182,7 @@ namespace Guldan.DynamicWebApi
         private bool CheckNoMapMethod(ActionModel action)
         {
             bool isExist = false;
-            var noMapMethod = ReflectionHelper.GetSingleAttributeOrDefault<NonDynamicMethodAttribute>(action.ActionMethod);
+            var noMapMethod = ReflectionHelper.CheckIfAttributeUsed<NonDynamicMethodAttribute>(action.ActionMethod);
 
             if (noMapMethod != null)
             {
@@ -217,7 +217,7 @@ namespace Guldan.DynamicWebApi
         private void ConfigureSelector(string areaName, string controllerName, ActionModel action)
         {
 
-            var nonAttr = ReflectionHelper.GetSingleAttributeOrDefault<NonDynamicWebApiAttribute>(action.ActionMethod);
+            var nonAttr = ReflectionHelper.CheckIfAttributeUsed<NonDynamicWebApiAttribute>(action.ActionMethod);
 
             if (nonAttr != null)
             {

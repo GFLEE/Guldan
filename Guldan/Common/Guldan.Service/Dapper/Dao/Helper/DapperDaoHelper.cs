@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Guldan.Common;
 using Guldan.Common.Enum;
-using Guldan.Common.Extension;
 using Guldan.Service.Dapper.Dao.Attributes;
 using Guldan.Service.Dapper.Dao.Resolver;
 

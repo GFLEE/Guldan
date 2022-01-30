@@ -19,6 +19,7 @@ namespace Guldan
         public static void Main(string[] args)
         {
             Console.Title = "Guldan";
+            Console.WriteLine($" Launching....\r");
             CreateHostBuilder(args).Build().Run();
         }
 

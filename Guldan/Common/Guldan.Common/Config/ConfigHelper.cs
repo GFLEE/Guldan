@@ -1,4 +1,4 @@
-﻿using Guldan.Common.Extension;
+﻿using Guldan.Common;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;

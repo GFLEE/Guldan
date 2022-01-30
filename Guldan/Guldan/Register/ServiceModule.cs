@@ -1,7 +1,7 @@
 ﻿
 using Autofac;
 using Autofac.Extras.DynamicProxy;
-using Guldan.Common.Extension;
+using Guldan.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;

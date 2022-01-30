@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Guldan.Common.Extension;
+using Guldan.Common;
 
 namespace Guldan.Cache
 {

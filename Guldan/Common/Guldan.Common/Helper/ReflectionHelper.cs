@@ -10,7 +10,7 @@ namespace Guldan.Common
     public static class ReflectionHelper
     {
 
-        public static TAttribute GetSingleAttributeOrDefaultByFullSearch<TAttribute>(TypeInfo info)
+        public static TAttribute CheckIfAttributeUsedRecurse<TAttribute>(TypeInfo info)
             where TAttribute : Attribute
         {
             var attributeType = typeof(TAttribute);
@@ -22,7 +22,7 @@ namespace Guldan.Common
             {
                 foreach (var implInter in info.ImplementedInterfaces)
                 {
-                    var res = GetSingleAttributeOrDefaultByFullSearch<TAttribute>(implInter.GetTypeInfo());
+                    var res = CheckIfAttributeUsedRecurse<TAttribute>(implInter.GetTypeInfo());
 
                     if (res != null)
                     {
@@ -34,7 +34,7 @@ namespace Guldan.Common
             return null;
         }
 
-        public static TAttribute GetSingleAttributeOrDefault<TAttribute>(MemberInfo memberInfo, TAttribute defaultValue = default(TAttribute), bool inherit = true)
+        public static TAttribute CheckIfAttributeUsed<TAttribute>(MemberInfo memberInfo, TAttribute defaultValue = default(TAttribute), bool inherit = true)
        where TAttribute : Attribute
         {
             var attributeType = typeof(TAttribute);
@@ -46,15 +46,8 @@ namespace Guldan.Common
             return defaultValue;
         }
 
-
-        /// <summary>
-        /// Gets a single attribute for a member.
-        /// </summary>
-        /// <typeparam name="TAttribute">Type of the attribute</typeparam>
-        /// <param name="memberInfo">The member that will be checked for the attribute</param>
-        /// <param name="inherit">Include inherited attributes</param>
-        /// <returns>Returns the attribute object if found. Returns null if not found.</returns>
-        public static TAttribute GetSingleAttributeOrNull<TAttribute>(this MemberInfo memberInfo, bool inherit = true)
+         
+        public static TAttribute CheckIfContainAttribute<TAttribute>(this MemberInfo memberInfo, bool inherit = true)
             where TAttribute : Attribute
         {
             if (memberInfo == null)
@@ -72,10 +65,10 @@ namespace Guldan.Common
         }
 
 
-        public static TAttribute GetSingleAttributeOfTypeOrBaseTypesOrNull<TAttribute>(this Type type, bool inherit = true)
+        public static TAttribute CheckBaseIfContainAttribute<TAttribute>(this Type type, bool inherit = true)
             where TAttribute : Attribute
         {
-            var attr = type.GetTypeInfo().GetSingleAttributeOrNull<TAttribute>();
+            var attr = type.GetTypeInfo().CheckIfContainAttribute<TAttribute>();
             if (attr != null)
             {
                 return attr;
@@ -86,7 +79,7 @@ namespace Guldan.Common
                 return null;
             }
 
-            return type.GetTypeInfo().BaseType.GetSingleAttributeOfTypeOrBaseTypesOrNull<TAttribute>(inherit);
+            return type.GetTypeInfo().BaseType.CheckBaseIfContainAttribute<TAttribute>(inherit);
         }
 
     }

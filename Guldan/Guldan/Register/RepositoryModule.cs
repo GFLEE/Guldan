@@ -1,6 +1,6 @@
 ﻿
 using Autofac;
-using Guldan.Common.Extension;
+using Guldan.Common;
 using Guldan.Service.FreeSql;
 using System;
 using System.Linq;

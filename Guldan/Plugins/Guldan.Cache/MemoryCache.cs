@@ -1,4 +1,4 @@
-﻿using Guldan.Common.Extension;
+﻿using Guldan.Common;
 using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections;

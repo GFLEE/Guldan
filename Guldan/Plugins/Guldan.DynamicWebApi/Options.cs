@@ -19,62 +19,38 @@ namespace Guldan.DynamicWebApi
         }
 
 
-        /// <summary>
-        /// API HTTP Verb.
-        /// <para></para>
-        /// Default value is "POST".
-        /// </summary>
+
         public string DefaultHttpVerb { get; set; }
 
         public string DefaultAreaName { get; set; }
 
-        /// <summary>
-        /// Routing prefix for all APIs
-        /// <para></para>
-        /// Default value is "api".
-        /// </summary>
+
         public string DefaultApiPrefix { get; set; }
 
-        /// <summary>
-        /// Remove the dynamic API class(Controller) name postfix.
-        /// <para></para>
-        /// Default value is {"AppService", "ApplicationService"}.
-        /// </summary>
+
         public List<string> RemoveControllerPostfixes { get; set; }
 
-        /// <summary>
-        /// Remove the dynamic API class's method(Action) postfix.
-        /// <para></para>
-        /// Default value is {"Async"}.
-        /// </summary>
+
         public List<string> RemoveActionPostfixes { get; set; }
 
-        /// <summary>
-        /// Ignore MVC Form Binding types.
-        /// </summary>
+
         public List<Type> FormBodyBindingIgnoredTypes { get; set; }
 
-        /// <summary>
-        /// The method that processing the name of the action.
-        /// </summary>
+
         public Func<string, string> GetRestFulActionName { get; set; }
 
-        /// <summary>
-        /// Specifies the dynamic webapi options for the assembly.
-        /// </summary>
+
         public Dictionary<Assembly, WebApiOptions> AssemblyDynamicWebApiOptions { get; }
 
         public ISelectController SelectController { get; set; } = new DefaultSelectController();
         public IActionRouteFactory ActionRouteFactory { get; set; } = new DefaultActionRouteFactory();
 
-        /// <summary>
-        /// Verify that all configurations are valid
-        /// </summary>
+
         public void Valid()
         {
             if (string.IsNullOrEmpty(DefaultHttpVerb))
             {
-                throw new ArgumentException($"{nameof(DefaultHttpVerb)} can not be empty.");
+                throw new ArgumentException($"{nameof(DefaultHttpVerb)} 不能为空！");
             }
 
             if (string.IsNullOrEmpty(DefaultAreaName))
@@ -89,26 +65,21 @@ namespace Guldan.DynamicWebApi
 
             if (FormBodyBindingIgnoredTypes == null)
             {
-                throw new ArgumentException($"{nameof(FormBodyBindingIgnoredTypes)} can not be null.");
+                throw new ArgumentException($"{nameof(FormBodyBindingIgnoredTypes)} 不能为空！");
             }
 
             if (RemoveControllerPostfixes == null)
             {
-                throw new ArgumentException($"{nameof(RemoveControllerPostfixes)} can not be null.");
+                throw new ArgumentException($"{nameof(RemoveControllerPostfixes)} 不能为空！");
             }
         }
 
-        /// <summary>
-        /// Add the dynamic webapi options for the assembly.
-        /// </summary>
-        /// <param name="assembly"></param>
-        /// <param name="apiPreFix"></param>
-        /// <param name="httpVerb"></param>
+
         public void AddAssemblyOptions(Assembly assembly, string apiPreFix = null, string httpVerb = null)
         {
             if (assembly == null)
             {
-                throw new ArgumentException($"{nameof(assembly)} can not be null.");
+                throw new ArgumentException($"{nameof(assembly)} 不能为空！");
             }
 
             this.AssemblyDynamicWebApiOptions[assembly] = new WebApiOptions(apiPreFix, httpVerb);

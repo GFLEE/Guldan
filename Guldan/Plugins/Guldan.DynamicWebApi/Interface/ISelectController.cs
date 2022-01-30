@@ -23,14 +23,14 @@ namespace Guldan.DynamicWebApi
             }
 
 
-            var attr = ReflectionHelper.GetSingleAttributeOrDefaultByFullSearch<DynamicWebApiAttribute>(typeInfo);
+            var attr = ReflectionHelper.CheckIfAttributeUsedRecurse<DynamicWebApiAttribute>(typeInfo);
 
             if (attr == null)
             {
                 return false;
             }
 
-            if (ReflectionHelper.GetSingleAttributeOrDefaultByFullSearch<NonDynamicWebApiAttribute>(typeInfo) != null)
+            if (ReflectionHelper.CheckIfAttributeUsedRecurse<NonDynamicWebApiAttribute>(typeInfo) != null)
             {
                 return false;
             }

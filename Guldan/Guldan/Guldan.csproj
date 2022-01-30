@@ -8,7 +8,8 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>../_Assembly/</OutputPath>
-    <DocumentationFile></DocumentationFile>
+    <DocumentationFile>../_Assembly/net5.0/xml/Guldan.xml</DocumentationFile>
+    <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

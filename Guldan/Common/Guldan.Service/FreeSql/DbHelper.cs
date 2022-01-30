@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FreeSql.Aop;
-using Guldan.Common.Extension;
+using Guldan.Common;
 using Guldan.Service.FreeSql.Base;
 
 namespace Guldan.Service.FreeSql

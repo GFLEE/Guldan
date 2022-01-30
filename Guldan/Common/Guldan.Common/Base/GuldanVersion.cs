@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Guldan.Common.Base
+namespace Guldan.Common
 {
-    public enum Version
+    public enum GuldanVersion
     {
-        /// <summary>
+        /// <summary> 
         /// V1 版本
         /// </summary>
         V1 = 1,

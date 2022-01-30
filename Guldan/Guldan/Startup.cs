@@ -32,6 +32,7 @@ using Guldan.Cache;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Guldan.Register;
+using System.IO;
 
 namespace Guldan
 {
@@ -53,7 +54,7 @@ namespace Guldan
             services.Configure<KestrelServerOptions>(x => x.AllowSynchronousIO = true)
                 .Configure<IISServerOptions>(x => x.AllowSynchronousIO = true);
 
-            #region 控制器
+            #region 控制器 & Swagger
 
             services.AddControllers(options =>
             {
@@ -67,19 +68,18 @@ namespace Guldan
             })
             .AddNewtonsoftJson(options =>
             {
-                //忽略循环引用
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-                //使用驼峰 首字母小写
                 options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             })
             .AddControllersAsServices();
 
+            services.AddSwaggeService();
             #endregion 控制器
 
             services.AddMemoryCache();
             services.AddSingleton<ICache, MemoryCache>();
 
-            services.AddConfigServices(Env).Wait();
+            //services.AddConfigServices(Env).Wait();
 
             services.AddDbService(Env).Wait();
 

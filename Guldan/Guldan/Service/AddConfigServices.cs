@@ -8,7 +8,6 @@ using Guldan.Cache;
 using Guldan.Common;
 using Guldan.Common.Config;
 using Guldan.Common.DI;
-using Guldan.Common.Extension;
 using Guldan.Service.FreeSql;
 using Guldan.Service.FreeSql.Base;
 using Microsoft.Extensions.DependencyInjection;
