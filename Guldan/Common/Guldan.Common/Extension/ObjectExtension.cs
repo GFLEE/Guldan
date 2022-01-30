@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Guldan.Common.Extension
+namespace Guldan.Common
 {
     public static class ObjectExtension
     {

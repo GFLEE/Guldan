@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 
-namespace Guldan.Common.Extension
+namespace Guldan.Common
 {
     /// <summary>
     /// AutoMapper 映射
