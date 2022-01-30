@@ -45,14 +45,14 @@ namespace Guldan
                          }
                          if (true)
                          {
-                             logger.WriteTo.RabbitMQ((clientConfig, sinkConfig) =>
+                             logger.MinimumLevel.Warning().WriteTo.RabbitMQ((clientConfig, sinkConfig) =>
                              {
                                  clientConfig.Username = "admin";
                                  clientConfig.Password = "admin";
-                                 clientConfig.Exchange = "guldanExchange";
+                                 clientConfig.Exchange = "GuldanExchange";
                                  clientConfig.ExchangeType = "direct";
                                  clientConfig.DeliveryMode = RabbitMQDeliveryMode.Durable;
-                                 clientConfig.RouteKey = "Log";
+                                 clientConfig.RouteKey = "LogRouteKey";
                                  clientConfig.Port = 5672;
                                  clientConfig.Hostnames.Add("127.0.0.1");
 

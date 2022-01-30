@@ -13,7 +13,7 @@ namespace Guldan.Service.FreeSql
     public class RepositoryBase<TEntity, TKey> : BaseRepository<TEntity, TKey>,
         IRepositoryBase<TEntity, TKey> where TEntity : class, new()
     {
-        public IUser User { get; set; }
+        public IUserContext User { get; set; }
 
         public RepositoryBase(IFreeSql freeSql) : base(freeSql, null, null)
         {

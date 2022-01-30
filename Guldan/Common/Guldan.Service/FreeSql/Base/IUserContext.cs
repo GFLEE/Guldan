@@ -6,16 +6,17 @@ using System.Threading.Tasks;
 
 namespace Guldan.Service.FreeSql.Base
 {
-    /// <summary>
-    /// 用户信息接口
-    /// </summary>
-    public interface IUser
+    public interface IUserContext
     {
         /// <summary>
-        /// 主键
+        /// 用户ID
         /// </summary>
         string Id { get; }
 
+        /// <summary>
+        /// 用户编码
+        /// </summary>
+        string Code { get; }
         /// <summary>
         /// 用户名
         /// </summary>
@@ -26,7 +27,7 @@ namespace Guldan.Service.FreeSql.Base
         /// </summary>
         string NickName { get; }
 
-  
-      
+
+
     }
 }

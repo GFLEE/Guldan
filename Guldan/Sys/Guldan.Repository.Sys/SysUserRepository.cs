@@ -18,7 +18,7 @@ namespace Guldan.Repository.Sys
         }
         //在这里增加 CURD 以外的方法
 
-       
+         
 
 
     }

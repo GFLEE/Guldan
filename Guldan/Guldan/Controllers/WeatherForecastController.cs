@@ -48,6 +48,8 @@ namespace Guldan.Controllers
 
             var data = _userService.AddUser(userDto);
 
+            _logger.LogDebug(JsonSerializer.Serialize(data));
+
             return ResponseInfo.Success(data);
 
         }

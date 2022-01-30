@@ -9,12 +9,8 @@ namespace Guldan.Common
 {
     public static class JsonSerializer
     {
-        public static string Serialize(object obj, Formatting formatting = Formatting.None)
-        {
-            return JsonConvert.SerializeObject(obj);
-        }
-
-
+        
+         
 
         public static T DeSerialize<T>(string str)
         {

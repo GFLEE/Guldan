@@ -21,15 +21,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Guldan.Cache", "..\Plugins\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sys", "Sys", "{848BE1BF-B435-45F9-8A28-E8A7105AD475}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guldan.IService.Sys", "..\Sys\Guldan.IService.Sys\Guldan.IService.Sys.csproj", "{B7A963E8-B545-4DC2-BE60-3B58277F591B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Guldan.IService.Sys", "..\Sys\Guldan.IService.Sys\Guldan.IService.Sys.csproj", "{B7A963E8-B545-4DC2-BE60-3B58277F591B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guldan.Data", "..\Guldan.Data\Guldan.Data.csproj", "{ADB39A25-2695-4973-8307-A67A17ECB44E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Guldan.Data", "..\Guldan.Data\Guldan.Data.csproj", "{ADB39A25-2695-4973-8307-A67A17ECB44E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guldan.Service.Sys", "..\Sys\Guldan.Service.Sys\Guldan.Service.Sys.csproj", "{E2590680-AE76-448E-8CE6-BA0CB38AE818}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Guldan.Service.Sys", "..\Sys\Guldan.Service.Sys\Guldan.Service.Sys.csproj", "{E2590680-AE76-448E-8CE6-BA0CB38AE818}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guldan.Service", "..\Common\Guldan.Service\Guldan.Service.csproj", "{F783B93C-AD10-4F31-9D2C-E8F19FC4C8E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Guldan.Service", "..\Common\Guldan.Service\Guldan.Service.csproj", "{F783B93C-AD10-4F31-9D2C-E8F19FC4C8E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guldan.Repository.Sys", "..\Sys\Guldan.Repository.Sys\Guldan.Repository.Sys.csproj", "{A8308C64-060D-49EC-9C0D-72675A1FF689}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Guldan.Repository.Sys", "..\Sys\Guldan.Repository.Sys\Guldan.Repository.Sys.csproj", "{A8308C64-060D-49EC-9C0D-72675A1FF689}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guldan.DynamicWebApi", "..\Plugins\Guldan.DynamicWebApi\Guldan.DynamicWebApi.csproj", "{81531570-15A1-4710-9990-AF916EC651F2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +83,10 @@ Global
 		{A8308C64-060D-49EC-9C0D-72675A1FF689}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8308C64-060D-49EC-9C0D-72675A1FF689}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8308C64-060D-49EC-9C0D-72675A1FF689}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81531570-15A1-4710-9990-AF916EC651F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81531570-15A1-4710-9990-AF916EC651F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81531570-15A1-4710-9990-AF916EC651F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81531570-15A1-4710-9990-AF916EC651F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -95,6 +101,7 @@ Global
 		{E2590680-AE76-448E-8CE6-BA0CB38AE818} = {848BE1BF-B435-45F9-8A28-E8A7105AD475}
 		{F783B93C-AD10-4F31-9D2C-E8F19FC4C8E8} = {1E551CDD-3AFC-42D1-A919-BEE589C11645}
 		{A8308C64-060D-49EC-9C0D-72675A1FF689} = {848BE1BF-B435-45F9-8A28-E8A7105AD475}
+		{81531570-15A1-4710-9990-AF916EC651F2} = {644EEF21-9C38-4213-819A-E94A92484D60}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {05121770-1E91-4E20-8DC8-92B1103F2931}

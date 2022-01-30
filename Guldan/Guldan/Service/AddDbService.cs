@@ -42,25 +42,26 @@ namespace Guldan.Service
             var fsql = flbulder.Build();
             fsql.GlobalFilter.Apply<IEntitySoftDelete>("SoftDelete", a => a.Is_Deleted == false);
 
-            var user = services.BuildServiceProvider().GetService<IUser>();
+            var user = services.BuildServiceProvider().GetService<IUserContext>();
 
-            fsql.Aop.CurdAfter += (s, e) =>
-            {
-                if (e.ElapsedMilliseconds > 200)
-                {
-
-                }
-            };
-
-            fsql.Aop.AuditValue += (s, e) =>
-            {
-                DbHelper.AuditValue(e, TimeSpan.FromMilliseconds(0), user);
-            };
 
             fsql.Aop.CurdBefore += (s, e) =>
             {
                 Console.WriteLine($"{e.Sql}\r\n");
             };
+            fsql.Aop.AuditValue += (s, e) =>
+            {
+                DbHelper.AuditValue(e, TimeSpan.FromMilliseconds(0), user);
+            };
+            fsql.Aop.CurdAfter += (s, e) =>
+            {
+                if (e.ElapsedMilliseconds > 5000)
+                {
+                    Console.WriteLine($"执行超时:{e.ElapsedMilliseconds}ms,{e.Sql}\r\n");
+
+                }
+            };
+
 
             services.AddSingleton(fsql);
 
