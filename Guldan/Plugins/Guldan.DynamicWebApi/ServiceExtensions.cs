@@ -16,11 +16,12 @@ namespace Guldan.DynamicWebApi
     /// </summary>
     public static class ServiceExtensions
     {
+         
         /// <summary>
-        /// Use Dynamic WebApi to Configure
+        /// 注册中间件
         /// </summary>
-        /// <param name="application"></param> 
-        /// <param name="options"></param>
+        /// <param name="application"></param>
+        /// <param name="optionsAction"></param>
         /// <returns></returns>
         public static IApplicationBuilder UseDynamicWebApi(this IApplicationBuilder application, Action<IServiceProvider,Options> optionsAction)
         {
@@ -41,7 +42,6 @@ namespace Guldan.DynamicWebApi
 
             var partManager = application.ApplicationServices.GetRequiredService<ApplicationPartManager>();
 
-            // Add a custom controller checker
             var featureProviders = application.ApplicationServices.GetRequiredService<ControllerFeatureProvider>();
             partManager.FeatureProviders.Add(featureProviders);
 

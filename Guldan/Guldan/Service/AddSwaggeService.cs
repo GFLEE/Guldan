@@ -21,7 +21,23 @@ namespace Guldan.Service
                     options.SwaggerDoc(version, new OpenApiInfo
                     {
                         Version = version,
-                        Title = "Guldan"
+                        Title = "Guldan",
+                        Description = "这是一个基于.NET,支持动态WebApi的平台",
+                        //TermsOfService = new Uri("None"),
+                        Contact = new OpenApiContact
+                        {
+                            Name = "Ricov",
+                            Email = "leegradylll@gmail.com",
+                            //Url = new Uri("https://github.com/GFLEE/Guldan")
+                        },
+                        License = new OpenApiLicense
+                        {
+                            Name = "许可证名字",
+                            // Url = new Uri("None")
+
+                        }
+
+
                     });
                 });
 

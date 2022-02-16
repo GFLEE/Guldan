@@ -1,5 +1,7 @@
-﻿using Guldan.Data;
+﻿using Guldan.Common;
+using Guldan.Data;
 using Guldan.Data.Dto;
+using Guldan.DynamicWebApi;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,7 +10,7 @@ using System.Text;
 
 namespace Guldan.IService.Sys
 {
-    public interface ISysUserService
+    public interface ISysUserService : IDynamicWebApi 
     {
 
         SYS_USER AddUser(SysUserDto userDto);

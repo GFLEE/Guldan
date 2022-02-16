@@ -33,6 +33,8 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Guldan.Register;
 using System.IO;
+using Guldan.DynamicWebApi;
+using Guldan.Service.Sys;
 
 namespace Guldan
 {
@@ -73,6 +75,7 @@ namespace Guldan
             })
             .AddControllersAsServices();
 
+            services.AddDynamicWebApiService();
             services.AddSwaggeService();
             #endregion 控制器
 
@@ -119,10 +122,24 @@ namespace Guldan
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Guldan v1"));
+                app.UseSwaggerUI(c =>
+                {
+                    typeof(GuldanVersion).GetEnumNames().OrderByDescending(e => e).ToList().ForEach(version =>
+                    {
+                        c.SwaggerEndpoint($"/swagger/{version}/swagger.json", $"Guldan {version}");
+                    });
+                    c.RoutePrefix = "ApiDoc";//直接根目录访问，如果是IIS发布可以注释该语句，并打开launchSettings.launchUrl
+                    c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
+                    c.DefaultModelsExpandDepth(-1);//不显示Models
+                });
+                app.UseDeveloperExceptionPage();
             }
+
+            app.UseDynamicWebApi((serviceProvider, options) =>
+            {
+                options.AddAssemblyOptions(typeof(SysUserService).Assembly);
+            });
 
             app.UseRouting();
 

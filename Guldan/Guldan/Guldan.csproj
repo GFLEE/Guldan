@@ -30,9 +30,12 @@
   <ItemGroup>
     <ProjectReference Include="..\Common\Guldan.Service\Guldan.Service.csproj" />
     <ProjectReference Include="..\Plugins\Guldan.Cache\Guldan.Cache.csproj" />
+    <ProjectReference Include="..\Plugins\Guldan.DynamicWebApi\Guldan.DynamicWebApi.csproj" />
     <ProjectReference Include="..\Plugins\Guldan.QuartzNet\Guldan.QuartzNet.csproj" />
     <ProjectReference Include="..\Sys\Guldan.IService.Sys\Guldan.IService.Sys.csproj" />
     <ProjectReference Include="..\Sys\Guldan.Service.Sys\Guldan.Service.Sys.csproj" />
   </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 </Project>

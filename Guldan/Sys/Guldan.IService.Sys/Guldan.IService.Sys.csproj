@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Guldan.Data\Guldan.Data.csproj" />
+    <ProjectReference Include="..\..\Plugins\Guldan.DynamicWebApi\Guldan.DynamicWebApi.csproj" />
   </ItemGroup>
 
 </Project>
