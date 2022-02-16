@@ -1,4 +1,30 @@
 {
-  "isOpenLog": true
+  "minimumLevel": null,
+  "isOpenFileLog": true,
+  "isOpenELKLog": true,
+  "fileOption": {
+    "tmplate": "¡¾{Timestamp:HH:mm:ss} {Level:u3}¡¿ {Message:lj}{NewLine}{Exception}",
+    "path": "",
+    "rollingInterval": "day",
+    "rollOnFileSizeLimit": true,
+    "fileSizeLimitBytes": 10485760,
+    "retainedFileCountLimit": 90
+  },
+  "elkOption": {
+    "elasticSearch": "http://localhost:9200/",
+    "MQOption": [
+      {
+        "Username": "admin",
+        "Password": "admin",
+        "Exchange": "GuldanExchange",
+        "ExchangeType": "direct",
+        "DeliveryMode": "Durable",
+        "RouteKey": "LogRouteKey",
+        "Port": "5672",
+        "Hostnames": "127.0.0.1"
 
+      }
+    ]
+
+  }
 }
