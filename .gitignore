@@ -350,3 +350,5 @@ MigrationBackup/
 .ionide/
 /Guldan/_Assembly/net5.0
 /Guldan/Sys/_Assembly/net5.0
+/Guldan/Sys/_Assembly/net6.0
+/Guldan/_Assembly/net6.0
