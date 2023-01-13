@@ -47,7 +47,7 @@ namespace Guldan.Service
 
                 var baseDirectory = System.AppDomain.CurrentDomain.BaseDirectory;
                 var xmlFile = System.AppDomain.CurrentDomain.FriendlyName + ".xml";
-                var xmlPath = Path.Combine(baseDirectory, "xml", xmlFile);
+                var xmlPath = Path.Combine(baseDirectory, xmlFile);
                 options.IncludeXmlComments(xmlPath);
 
 

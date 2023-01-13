@@ -35,6 +35,7 @@ using Guldan.Register;
 using System.IO;
 using Guldan.DynamicWebApi;
 using Guldan.Service.Sys;
+using Guldan.IService.Sys;
 
 namespace Guldan
 {
@@ -100,6 +101,15 @@ namespace Guldan
 
             try
             {
+                builder.RegisterType<SysUserService>().As<ISysUserService>();
+
+                builder.RegisterTypes(typeof(SysUserService).Assembly.GetExportedTypes()
+                    .Where(type => typeof(IDynamicWebApi).IsAssignableFrom(type)).ToArray());
+
+
+                builder.RegisterTypes(Assembly.GetExecutingAssembly().GetExportedTypes()
+                .Where(type => typeof(IDynamicWebApi).IsAssignableFrom(type)).ToArray());
+
                 builder.RegisterModule(new ControllerModule());
                 builder.RegisterModule(new SingleInstanceModule());
                 builder.RegisterModule(new RepositoryModule());

@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.Internal;
 
 namespace Guldan.Common
 {
@@ -125,7 +126,7 @@ namespace Guldan.Common
         {
             try
             {
-                return Mapper.ConfigurationProvider.FindTypeMapFor(sourceType, destinationType);
+                return Mapper.ConfigurationProvider.Internal().FindTypeMapFor(sourceType, destinationType);
             }
             catch (InvalidOperationException)
             {
@@ -133,13 +134,13 @@ namespace Guldan.Common
                 {
                     try
                     {
-                        return Mapper.ConfigurationProvider.FindTypeMapFor(sourceType, destinationType);
+                        return Mapper.ConfigurationProvider.Internal().FindTypeMapFor(sourceType, destinationType);
                     }
                     catch (InvalidOperationException)
                     {
                         InitMaps(sourceType, destinationType);
                     }
-                    return Mapper.ConfigurationProvider.FindTypeMapFor(sourceType, destinationType);
+                    return Mapper.ConfigurationProvider.Internal().FindTypeMapFor(sourceType, destinationType);
                 }
             }
         }
@@ -153,7 +154,7 @@ namespace Guldan.Common
             {
                 var config = new MapperConfiguration(cfg => cfg.CreateMap(sourceType, destinationType));
                 Mapper = config.CreateMapper() as Mapper;
-                var maps = Mapper.ConfigurationProvider.GetAllTypeMaps();
+                var maps = Mapper.ConfigurationProvider.Internal().GetAllTypeMaps();
 
                 ClearConfig();
 

@@ -60,7 +60,7 @@ namespace Guldan.Service.Dapper.DbContext
             catch (Exception ex)
             {
                 this.Rollback();
-                throw ex;
+                //throw ex;
             }
             finally
             {

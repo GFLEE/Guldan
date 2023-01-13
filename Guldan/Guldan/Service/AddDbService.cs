@@ -59,6 +59,11 @@ namespace Guldan.Service
                     Console.WriteLine($"执行超时:{e.ElapsedMilliseconds}ms,{e.Sql}\r\n");
 
                 }
+                if (e.ExecuteResult.ToString() == "0")
+                {
+                    Console.WriteLine($"执行报错:{e.Exception.Message},{e.Sql}\r\n");
+
+                }
             };
 
 

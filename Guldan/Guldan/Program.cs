@@ -29,39 +29,38 @@ namespace Guldan
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                }).UseSerilog((context, logger) =>
+                {
 
-                    webBuilder.UseSerilog((context, logger) =>
-                     {
-                         string tmplate = "¡¾{Timestamp:HH:mm:ss} {Level:u3}¡¿ {Message:lj}{NewLine}{Exception}";
-                         var path = $"{AppDomain.CurrentDomain}./Logs";
-                         logger.ReadFrom.Configuration(context.Configuration);
-                         logger.Enrich.FromLogContext()
-                         .WriteTo.Console(theme: AnsiConsoleTheme.Code,
-                             outputTemplate: tmplate);
-                         if (true)
-                         {
-                             logger.WriteTo.Async(a => a.File($"{path}/.txt", rollingInterval: RollingInterval.Day,
-                             fileSizeLimitBytes: 10485760, retainedFileCountLimit: 90,
-                             rollOnFileSizeLimit: true, shared: true, buffered: false, outputTemplate: tmplate));
-                         }
-                         if (true)
-                         {
-                             logger.MinimumLevel.Warning().WriteTo.RabbitMQ((clientConfig, sinkConfig) =>
-                             {
-                                 clientConfig.Username = "admin";
-                                 clientConfig.Password = "admin";
-                                 clientConfig.Exchange = "GuldanExchange";
-                                 clientConfig.ExchangeType = "direct";
-                                 clientConfig.DeliveryMode = RabbitMQDeliveryMode.Durable;
-                                 clientConfig.RouteKey = "LogRouteKey";
-                                 clientConfig.Port = 5672;
-                                 clientConfig.Hostnames.Add("127.0.0.1");
+                    string tmplate = "¡¾{Timestamp:HH:mm:ss} {Level:u3}¡¿ {Message:lj}{NewLine}{Exception}";
+                    var path = $"{AppDomain.CurrentDomain}./Logs";
+                    logger.ReadFrom.Configuration(context.Configuration);
+                    logger.Enrich.FromLogContext()
+                    .WriteTo.Console(theme: AnsiConsoleTheme.Code,
+                        outputTemplate: tmplate);
+                    if (true)
+                    {
+                        logger.WriteTo.Async(a => a.File($"{path}/.txt", rollingInterval: RollingInterval.Day,
+                        fileSizeLimitBytes: 10485760, retainedFileCountLimit: 90,
+                        rollOnFileSizeLimit: true, shared: true, buffered: false, outputTemplate: tmplate));
+                    }
+                    if (true)
+                    {
+                        logger.MinimumLevel.Warning().WriteTo.RabbitMQ((clientConfig, sinkConfig) =>
+                        {
+                            clientConfig.Username = "admin";
+                            clientConfig.Password = "admin";
+                            clientConfig.Exchange = "GuldanExchange";
+                            clientConfig.ExchangeType = "direct";
+                            clientConfig.DeliveryMode = RabbitMQDeliveryMode.Durable;
+                            clientConfig.RouteKey = "LogRouteKey";
+                            clientConfig.Port = 5672;
+                            clientConfig.Hostnames.Add("127.0.0.1");
 
-                             });
+                        });
 
-                         }
-                     }
-                     );
+                    }
+
                 });
     }
 }

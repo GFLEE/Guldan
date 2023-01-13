@@ -6,13 +6,13 @@
   // MySql = 0, SqlServer = 1, PostgreSQL = 2, Oracle = 3, Sqlite = 4, OdbcOracle = 5, OdbcSqlServer = 6, OdbcMySql = 7, OdbcPostgreSQL = 8, Odbc = 9, OdbcDameng = 10, MsAccess = 11, Dameng = 12, OdbcKingbaseES = 13, ShenTong = 14, KingbaseES = 15, Firebird = 16
   "configs": [
     {
-      "type": "Oracle",
+      "type": "MySql",
       //Oracle "Data Source=127.0.0.1:1521/ORCL;User ID=root;Password=root;"
-      //MySql "Server=localhost; Port=3306; Database=admindb; Uid=root; Pwd=pwd; Charset=utf8mb4;"
+      //"MySql": "Server=localhost; Port=3306; Database=guldan; Uid=root; Pwd=root; Charset=utf8mb4;",
       //SqlServer "Data Source=.;Integrated Security=True;Initial Catalog=admindb;Pooling=true;Min Pool Size=1"
       //PostgreSQL "Host=localhost;Port=5432;Username=postgres;Password=; Database=admindb;Pooling=true;Minimum Pool Size=1"
       //Sqlite "Data Source=|DataDirectory|\\admindb.db; Pooling=true;Min Pool Size=1"
-      "connectionString": "Data Source=127.0.0.1:1521/ORCL;User ID=guldan;Password=guldan;",
+      "connectionString": "Server=127.0.0.1; Port=3306; Database=guldan; Uid=root; Pwd=root; Charset=utf8mb4;",
       "isEnable": true
     }
   ]

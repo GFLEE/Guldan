@@ -1,4 +1,5 @@
 ﻿using Guldan.Common;
+using Guldan.Common.Model;
 using Guldan.Data;
 using Guldan.Data.Dto;
 using Guldan.DynamicWebApi;
@@ -13,7 +14,7 @@ namespace Guldan.IService.Sys
     public interface ISysUserService : IDynamicWebApi 
     {
 
-        SYS_USER AddUser(SysUserDto userDto);
+        WebJsonInfo AddUser(SysUserDto userDto);
 
 
 
