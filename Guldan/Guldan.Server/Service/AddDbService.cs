@@ -13,7 +13,7 @@ using Microsoft.Extensions.Hosting;
 using MySqlX.XDevAPI;
 using static Org.BouncyCastle.Math.EC.ECCurve;
 
-namespace Guldan.Service
+namespace Guldan.Server.Service
 {
     public static class DbService
     {

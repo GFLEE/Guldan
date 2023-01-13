@@ -7,7 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Guldan.Service
+namespace Guldan.Server.Service
 {
     public static class SwaggeServic
     {

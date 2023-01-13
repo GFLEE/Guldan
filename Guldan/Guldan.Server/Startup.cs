@@ -31,13 +31,14 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Guldan.Cache;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using Guldan.Register;
+using Guldan.Server.Register;
 using System.IO;
 using Guldan.DynamicWebApi;
 using Guldan.Service.Sys;
 using Guldan.IService.Sys;
+using Guldan.Server.Service;
 
-namespace Guldan
+namespace Guldan.Server
 {
     public class Startup
     {

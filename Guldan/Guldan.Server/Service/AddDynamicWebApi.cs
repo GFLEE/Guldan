@@ -6,7 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace Guldan.Service
+namespace Guldan.Server.Service
 {
     public static class DynamicWebApiService
     {

@@ -8,7 +8,7 @@ using System.Linq;
 using System.Reflection;
 using Module = Autofac.Module;
 
-namespace Guldan.Register
+namespace Guldan.Server.Register
 {
     public class ServiceModule : Module
     {
